@@ -655,6 +655,7 @@ window.CONECTA_CATEGORIAS = {
   campanha:      { nome: "Campanha de conscientização", cor: "#0f9d94", fundo: "#e0f5f3" },
   comemoracao:   { nome: "Comemoração",                 cor: "#ea6a12", fundo: "#ffeedd" },
   regional:      { nome: "Joinville / SC",              cor: "#2563eb", fundo: "#e5edff" },
+  endomarketing: { nome: "Endomarketing",               cor: "#c026d3", fundo: "#fae8ff" },
   pessoas:       { nome: "Pessoas (aniversários e tempo de casa)", cor: "#be123c", fundo: "#ffe4e9" },
   teste:         { nome: "Teste do sistema",            cor: "#1f2937", fundo: "#f1f1f1" }
 };
@@ -668,6 +669,7 @@ window.CONECTA_PUBLICOS = [
   "Logística e motoristas",
   "Segurança do trabalho",
   "RH",
+  "Endomarketing",
   "Administrativo",
   "Mulheres",
   "Homens",
@@ -681,7 +683,8 @@ window.CONECTA_TIPOS = {
   "tradicional": "Tradicional",
   "informal":    "Informal",
   "a-confirmar": "A confirmar",
-  "interno":     "Interno"
+  "interno":     "Interno",
+  "compromisso": "Compromisso Endomarketing"
 };
 
 window.CONECTA_SEED = [
@@ -1529,6 +1532,7 @@ window.CONECTA_SEED = [
   function criarEvento(dados) {
     var ev = eventoBase(Object.assign({}, dados, { id: dados.id || uid("ev") }));
     ev.titulo = String(ev.titulo).trim();
+    if (!ev.lembretesDesde && !ev.lembretesCustom) ev.lembretesDesde = hojeISO(); // prazos anteriores ao cadastro não viram "atrasados"
     var erros = validarEvento(ev);
     if (erros.length) throw new Error(erros.join(" "));
     estado.eventos.push(ev);
@@ -2623,7 +2627,7 @@ window.CONECTA_SEED = [
         fecharModal();
         toast(id ? "Evento atualizado." : "Evento incluído no calendário.", "ok");
         if (!id) { var dd = pd(salvo.data); ui.mesAno = dd.getFullYear(); ui.mes = dd.getMonth(); irPara("mes"); } else render();
-        abrirEvento(salvo.id);
+        setTimeout(function () { abrirEvento(salvo.id); }, 60); // depois da troca de rota (que fecha modais)
       } catch (err) { $("#erroForm").textContent = err.message; }
     };
     form.addEventListener("submit", enviar);
