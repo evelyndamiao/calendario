@@ -533,6 +533,46 @@ textarea.input { resize: vertical; min-height: 80px; }
   body { background: #fff; }
 }
 
+/* ===================== Pessoas ===================== */
+.pes-topo { display: flex; gap: 16px; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; }
+.pes-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.kpis.kpis-4 { grid-template-columns: repeat(4, 1fr); }
+.pes-meses { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.pes-mes { border: 1px solid var(--linha); border-radius: 14px; padding: 10px; background: #fff; min-height: 90px; }
+.pes-mes-cab { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; border-bottom: 2px solid var(--rosa-claro); padding-bottom: 4px; }
+.pes-mes-cab button { border: 0; background: none; font-family: var(--fonte-titulo); font-weight: 700; font-size: 17px; color: var(--texto); padding: 0; cursor: pointer; }
+.pes-mes-cab button:hover { color: var(--rosa); }
+.pes-mes-cab em { font-style: normal; font-size: 11.5px; font-weight: 800; color: #be123c; background: #ffe4e9; border-radius: 999px; padding: 1px 8px; }
+.pes-nada { color: var(--texto-3); font-size: 13px; padding: 4px 2px; }
+.pes-ev { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: none; text-align: left; padding: 4px 4px; border-radius: 8px; font-size: 13px; color: var(--texto); line-height: 1.25; cursor: pointer; }
+.pes-ev:hover { background: var(--rosa-suave); }
+.pes-ev .pes-dia { font-weight: 800; color: #be123c; min-width: 20px; font-variant-numeric: tabular-nums; }
+.pes-ev .tag { font-size: 10.5px; padding: 1px 6px; }
+.pes-lista-mini { display: grid; gap: 2px; }
+.pes-qtd { font-family: var(--fonte); font-size: 12px; font-weight: 800; color: #be123c; background: #ffe4e9; border-radius: 999px; padding: 2px 9px; }
+.pes-lista { display: grid; gap: 6px; max-height: 520px; overflow: auto; }
+.pes-item { display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid var(--linha); border-radius: 12px; background: #fff; }
+.pes-item.inativo { opacity: .6; }
+.pes-av { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; background: linear-gradient(135deg, var(--rosa), #ff7ab8); color: #fff; font-weight: 800; font-size: 13px; text-transform: uppercase; }
+.pes-info { display: grid; min-width: 0; flex: 1; }
+.pes-info b { font-size: 14px; }
+.pes-info small { font-size: 12px; color: var(--texto-2); }
+.pes-cfg { display: grid; gap: 8px; }
+.pes-check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.pes-check input { accent-color: var(--rosa); width: 18px; height: 18px; margin-top: 2px; flex: none; }
+.pes-check span { display: grid; gap: 2px; }
+.pes-check b { font-size: 14px; color: var(--texto); }
+.pes-check small { font-size: 12.5px; color: var(--texto-2); font-weight: 500; }
+.pes-dm { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px; }
+.form-rot { font-size: 13px; font-weight: 700; color: var(--texto-2); margin-bottom: 5px; }
+.aviso-pessoa { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: #ffe4e9; color: #881337; border-radius: 12px; padding: 10px 12px; font-size: 13.5px; margin-bottom: 14px; }
+.aviso-pessoa .ico { color: #be123c; }
+.busca { display: flex; align-items: center; gap: 8px; position: relative; }
+.busca .ico { position: absolute; left: 12px; color: var(--texto-3); }
+.busca .input { padding-left: 36px; width: 100%; }
+@media (max-width: 980px) { .pes-meses { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpis.kpis-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .pes-meses { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body>
@@ -552,6 +592,7 @@ textarea.input { resize: vertical; min-height: 80px; }
         <button class="nav-btn" data-nav="painel"><span data-icon="home"></span><span>Painel</span></button>
         <button class="nav-btn" data-nav="mes"><span data-icon="calendar"></span><span>Calendário</span></button>
         <button class="nav-btn" data-nav="lembretes"><span data-icon="bell"></span><span>Lembretes</span><b class="nav-badge" id="badgeLembretes" hidden></b></button>
+        <button class="nav-btn" data-nav="pessoas"><span data-icon="users"></span><span>Pessoas</span></button>
         <button class="nav-btn" data-nav="testes"><span data-icon="flask"></span><span>Testes do Sistema</span></button>
       </nav>
 
@@ -604,7 +645,7 @@ textarea.input { resize: vertical; min-height: 80px; }
      interno      -> evento interno do sistema (teste)
    ========================================================================= */
 
-window.CONECTA_SEED_VERSION = 1;
+window.CONECTA_SEED_VERSION = 2;
 
 window.CONECTA_CATEGORIAS = {
   feriado:       { nome: "Feriado / ponto facultativo", cor: "#64748b", fundo: "#eef1f5" },
@@ -614,6 +655,7 @@ window.CONECTA_CATEGORIAS = {
   campanha:      { nome: "Campanha de conscientização", cor: "#0f9d94", fundo: "#e0f5f3" },
   comemoracao:   { nome: "Comemoração",                 cor: "#ea6a12", fundo: "#ffeedd" },
   regional:      { nome: "Joinville / SC",              cor: "#2563eb", fundo: "#e5edff" },
+  pessoas:       { nome: "Pessoas (aniversários e tempo de casa)", cor: "#be123c", fundo: "#ffe4e9" },
   teste:         { nome: "Teste do sistema",            cor: "#1f2937", fundo: "#f1f1f1" }
 };
 
@@ -643,6 +685,116 @@ window.CONECTA_TIPOS = {
 };
 
 window.CONECTA_SEED = [
+  /* ===================== FECHAMENTO DE 2026 (nov/dez) =====================
+     Incluídas em 17/11/2026 (versão 2 da base). Lembretes com prazo anterior
+     a essa data são ignorados, para não aparecerem como "atrasados". */
+  {
+    id: "2026-novembro-azul", titulo: "Novembro Azul — saúde do homem (2026)", data: "2026-11-01", dataFim: "2026-11-30",
+    categoria: "campanha", tipo: "tradicional", publico: ["Homens", "Todos os colaboradores"], prioridade: "alta",
+    contexto: "Campanha em andamento. Público masculino é maioria nas equipes técnicas, de instalação e de logística, que costumam adiar consultas.",
+    sugestao: "Ainda dá tempo: post no canal interno sobre exames preventivos, bigode/azul na foto da equipe e conversa rápida no DDS das equipes de campo.",
+    antecedencia: "7 dias", fonte: "Campanha Novembro Azul — Instituto Lado a Lado pela Vida (desde 2008)", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-festa-flores", titulo: "86ª Festa das Flores de Joinville", data: "2026-11-17", dataFim: "2026-11-22",
+    categoria: "regional", tipo: "tradicional", publico: ["Todos os colaboradores", "Famílias"], prioridade: "baixa",
+    contexto: "Evento mais tradicional da cidade, realizado desde 1936, acontecendo agora no Parque Hemero.",
+    sugestao: "Post de orgulho local e dica de passeio em família para o fim de semana.",
+    antecedencia: "7 dias", fonte: "86ª Festa das Flores — 17 a 22/11/2026 (Parque Hemero)",
+    fonteUrl: "https://blog.blablacar.com.br/eventos/festa-das-flores-joinville-2026", desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-consciencia-negra", titulo: "Dia Nacional de Zumbi e da Consciência Negra (feriado)", data: "2026-11-20",
+    categoria: "feriado", tipo: "oficial", publico: ["Todos os colaboradores"], prioridade: "media",
+    contexto: "Feriado nacional desde a Lei nº 14.759/2023. Em 2026 cai numa sexta-feira, formando feriado prolongado.",
+    sugestao: "Aviso de expediente e escala das equipes de campo; conteúdo respeitoso sobre diversidade e combate ao racismo no ambiente de trabalho.",
+    antecedencia: "7 dias", fonte: "Lei nº 14.759/2023; Portaria MGI nº 11.460/2025 (feriados de 2026)",
+    fonteUrl: "https://cnbsp.org.br/2025/12/30/dou-portaria-ministerio-de-estado-da-gestao-e-da-inovacao-em-servicos-publicos-n-11-460-2025-divulga-os-dias-de-feriados-nacionais-e-estabelece-os-dias-de-ponto-facultativo-no-ano-de-2026/",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-engenheiro-eletricista", titulo: "Dia do Engenheiro Eletricista (2026)", data: "2026-11-23",
+    categoria: "profissional", tipo: "oficial", publico: ["Engenharia"], prioridade: "alta",
+    contexto: "Data instituída pela Lei nº 12.074/2009. Em 2026 cai numa segunda-feira, logo após o feriado prolongado.",
+    sugestao: "Homenagem na abertura da semana: mensagem da diretoria e destaque aos projetos que a engenharia entregou em 2026.",
+    antecedencia: "30 dias", fonte: "Lei nº 12.074/2009 — Dia Nacional do Engenheiro Eletricista",
+    fonteUrl: "https://www2.camara.leg.br/legin/fed/lei/2009/lei-12074-29-outubro-2009-591936-publicacaooriginal-116991-pl.html",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-santa-catarina", titulo: "Dia de Santa Catarina de Alexandria (possível feriado estadual)", data: "2026-11-25",
+    categoria: "regional", tipo: "a-confirmar", publico: ["Todos os colaboradores"], prioridade: "baixa",
+    contexto: "O PL nº 23/2026, que cria o feriado estadual, foi enviado à Alesc em fevereiro; até a última notícia encontrada, ainda não havia sido votado. Em 2026 cai numa quarta-feira.",
+    sugestao: "Acompanhar a Alesc até a véspera. Se aprovado, avisar sobre o expediente e reorganizar as instalações agendadas.",
+    antecedencia: "7 dias", fonte: "Alesc — PL nº 23/2026 (em tramitação)", fonteUrl: "https://portalelegis.alesc.sc.gov.br/documentos/8Gmor",
+    confirmada: false, desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-seguranca-trabalho", titulo: "Dia do Técnico e do Engenheiro de Segurança do Trabalho (2026)", data: "2026-11-27",
+    categoria: "profissional", tipo: "tradicional", publico: ["Segurança do trabalho"], prioridade: "media",
+    contexto: "Data de referência da Lei nº 7.410/1985. Em 2026 cai numa sexta-feira.",
+    sugestao: "Agradecimento público a quem cuida para que todos voltem para casa em segurança, com os indicadores de segurança de 2026.",
+    antecedencia: "15 dias", fonte: "Lei nº 7.410/1985 (data de referência)", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-dezembro-laranja", titulo: "Dezembro Laranja — prevenção ao câncer de pele (2026)", data: "2026-12-01", dataFim: "2026-12-31",
+    categoria: "campanha", tipo: "tradicional", publico: ["Técnicos e eletricistas", "Logística e motoristas", "Todos os colaboradores"], prioridade: "alta",
+    contexto: "Campanha da Sociedade Brasileira de Dermatologia no início do verão. Essencial para quem instala módulos em telhados sob sol intenso.",
+    sugestao: "Distribuição de protetor solar, reforço de camisa UV e proteção de nuca sob o capacete, hidratação e pausas nas horas mais quentes.",
+    antecedencia: "15 dias", fonte: "Sociedade Brasileira de Dermatologia — campanha Dezembro Laranja", fonteUrl: "https://www.sbd.org.br/dezembrolaranja/",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-dezembro-vermelho", titulo: "Dezembro Vermelho — prevenção ao HIV/aids e ISTs (2026)", data: "2026-12-01", dataFim: "2026-12-31",
+    categoria: "campanha", tipo: "oficial", publico: ["Todos os colaboradores"], prioridade: "baixa",
+    contexto: "Campanha nacional instituída pela Lei nº 13.504/2017; 1º de dezembro é o Dia Mundial de Luta contra a Aids.",
+    sugestao: "Conteúdo informativo discreto e respeitoso no canal interno.",
+    antecedencia: "7 dias", fonte: "Lei nº 13.504/2017 — Dezembro Vermelho", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-confraternizacao", titulo: "Confraternização de final de ano 2026", data: "2026-12-11",
+    categoria: "comemoracao", tipo: "interno", publico: ["Todos os colaboradores", "Famílias"], prioridade: "alta",
+    contexto: "Data definida pela Catarinna’s (sexta-feira). Principal momento de celebração e reconhecimento do ano. No mesmo dia é o Dia do Engenheiro.",
+    sugestao: "Retrospectiva de 2026 (instalações, kWp, CO₂ evitado), reconhecimentos por área e tempo de casa, homenagem aos engenheiros pelo Dia do Engenheiro, amigo secreto e mensagem da diretoria com as metas de 2027.",
+    antecedencia: "30 dias", fonte: "Data interna definida pela empresa", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-dia-engenheiro", titulo: "Dia do Engenheiro (2026)", data: "2026-12-11",
+    categoria: "profissional", tipo: "oficial", publico: ["Engenharia"], prioridade: "alta",
+    contexto: "Data do Decreto nº 23.569/1933, que regulamentou a profissão. Em 2026 coincide com a confraternização de final de ano.",
+    sugestao: "Aproveitar a confraternização para uma homenagem rápida aos engenheiros(as), com certificado ou brinde simbólico.",
+    antecedencia: "30 dias", fonte: "Decreto nº 23.569/1933; Confea", fonteUrl: "https://www.confea.org.br/node/225257",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-vespera-natal", titulo: "Véspera de Natal (ponto facultativo após as 13h)", data: "2026-12-24",
+    categoria: "feriado", tipo: "oficial", publico: ["Todos os colaboradores"], prioridade: "baixa",
+    contexto: "Ponto facultativo após as 13h no calendário federal de 2026 (quinta-feira). A empresa define o expediente.",
+    sugestao: "Comunicar com antecedência o horário de expediente de 24 e 31/12 e a escala de plantão para atendimento a clientes.",
+    antecedencia: "7 dias", fonte: "Portaria MGI nº 11.460/2025 (pontos facultativos de 2026)",
+    fonteUrl: "https://cnbsp.org.br/2025/12/30/dou-portaria-ministerio-de-estado-da-gestao-e-da-inovacao-em-servicos-publicos-n-11-460-2025-divulga-os-dias-de-feriados-nacionais-e-estabelece-os-dias-de-ponto-facultativo-no-ano-de-2026/",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-natal", titulo: "Natal (feriado)", data: "2026-12-25",
+    categoria: "comemoracao", tipo: "oficial", publico: ["Todos os colaboradores", "Famílias"], prioridade: "media",
+    contexto: "Feriado nacional; em 2026 cai numa sexta-feira. A celebração da equipe acontece na confraternização de 11/12.",
+    sugestao: "Cartão digital de Natal da diretoria para colaboradores e famílias, com o sol da marca.",
+    antecedencia: "15 dias", fonte: "Lei nº 662/1949; Portaria MGI nº 11.460/2025", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
+  {
+    id: "2026-vespera-ano-novo", titulo: "Véspera de Ano Novo (ponto facultativo após as 13h)", data: "2026-12-31",
+    categoria: "feriado", tipo: "oficial", publico: ["Todos os colaboradores"], prioridade: "baixa",
+    contexto: "Ponto facultativo após as 13h no calendário federal de 2026 (quinta-feira). A empresa define o expediente.",
+    sugestao: "Mensagem de encerramento do ano e aviso de expediente; reforço sobre segurança no trânsito nas viagens de fim de ano.",
+    antecedencia: "7 dias", fonte: "Portaria MGI nº 11.460/2025 (pontos facultativos de 2026)", fonteUrl: "",
+    desdeVersao: 2, lembretesDesde: "2026-11-17"
+  },
   /* ============================ JANEIRO ============================ */
   {
     id: "ano-novo", titulo: "Confraternização Universal (Ano Novo)", data: "2027-01-01",
@@ -1288,7 +1440,8 @@ window.CONECTA_SEED = [
     var base = {
       id: "", titulo: "", data: "", dataFim: "", categoria: "comemoracao", tipo: "tradicional", publico: [],
       prioridade: "media", contexto: "", sugestao: "", antecedencia: "30 dias", fonte: "", fonteUrl: "",
-      status: "pendente", observacoes: "", confirmada: true, sistema: false, demo: false, lembretesCustom: null
+      status: "pendente", observacoes: "", confirmada: true, sistema: false, demo: false, lembretesCustom: null,
+      pessoaId: "", pessoaTipo: "", lembretesDesde: ""
     };
     var r = Object.assign(base, clonar(e));
     if (!Array.isArray(r.publico)) r.publico = r.publico ? [String(r.publico)] : [];
@@ -1302,6 +1455,8 @@ window.CONECTA_SEED = [
       lembretesFeitos: {},
       notificados: {},
       resultadosTestes: {},
+      colaboradores: [],
+      pessoasConfig: { aniversarios: true, tempoCasa: true, boasVindas: true },
       criadoEm: new Date().toISOString(),
       atualizadoEm: new Date().toISOString()
     };
@@ -1317,6 +1472,8 @@ window.CONECTA_SEED = [
           d.lembretesFeitos = d.lembretesFeitos || {};
           d.notificados = d.notificados || {};
           d.resultadosTestes = d.resultadosTestes || {};
+          prepararPessoas(d);
+          migrarBase(d);
           return d;
         }
       }
@@ -1324,6 +1481,15 @@ window.CONECTA_SEED = [
     var ini = estadoInicial();
     salvarEstado(ini);
     return ini;
+  }
+  // Inclui datas novas da base (ex.: fechamento de 2026) sem mexer no que o usuário já editou
+  function migrarBase(d) {
+    var v = d.versao || 1, alvo = window.CONECTA_SEED_VERSION || 1;
+    if (v >= alvo) return;
+    var ids = {}; d.eventos.forEach(function (e) { ids[e.id] = true; });
+    SEED.forEach(function (e) { if ((e.desdeVersao || 1) > v && !ids[e.id]) d.eventos.push(eventoBase(e)); });
+    d.versao = alvo;
+    salvarEstado(d);
   }
   function salvarEstado(e) {
     if (!armazenamentoOk) return false;
@@ -1429,10 +1595,11 @@ window.CONECTA_SEED = [
     }
     var etapas = ev.prioridade === "baixa" ? ETAPAS.filter(function (e) { return e.dias === 7; }) : ETAPAS;
     var base = pd(ev.data);
+    var desde = ev.lembretesDesde && dataValida(ev.lembretesDesde) ? pd(ev.lembretesDesde) : null;
     return etapas.map(function (et) {
       var q = addDias(base, -et.dias); q.setHours(HORA_LEMBRETE, 0, 0, 0);
       return { key: ev.id + "|" + et.dias, ev: ev, quando: q, acao: et.acao, etapa: et.dias + (et.dias > 1 ? " dias antes" : " dia antes"), dias: et.dias };
-    });
+    }).filter(function (l) { return !desde || l.quando >= desde; });
   }
   function todosLembretes() {
     var hoje = hojeISO();
@@ -1683,6 +1850,7 @@ window.CONECTA_SEED = [
   (function mesInicial() {
     var h = new Date();
     if (h.getFullYear() === ANO_BASE) { ui.mes = h.getMonth(); }
+    else if (h.getFullYear() === ANO_BASE - 1) { ui.mesAno = ANO_BASE - 1; ui.mes = h.getMonth(); }
   })();
 
   function irPara(view, extra) {
@@ -1693,7 +1861,7 @@ window.CONECTA_SEED = [
   function lerRota() {
     var h = (location.hash || "").replace(/^#\/?/, "").split("/");
     var v = h[0] || "painel";
-    if (["painel", "mes", "lembretes", "testes"].indexOf(v) === -1) v = "painel";
+    if (["painel", "mes", "lembretes", "pessoas", "testes"].indexOf(v) === -1) v = "painel";
     ui.view = v;
     if (v === "mes" && h[1] && /^\d{4}-\d{2}$/.test(h[1])) {
       var p = h[1].split("-").map(Number);
@@ -1761,10 +1929,10 @@ window.CONECTA_SEED = [
     var h = agora.getHours();
     var saud = h < 12 ? "Bom dia" : h < 18 ? "Boa tarde" : "Boa noite";
     var diasAte = difDias(agora, new Date(ANO_BASE, 0, 1));
-    var linhaTempo = diasAte > 0 ? "Faltam <b>" + diasAte + " dias</b> para 2027 — é hora de planejar o primeiro trimestre." :
+    var linhaTempo = diasAte > 0 ? "Faltam <b>" + diasAte + " dias</b> para 2027. O calendário também cobre o fechamento de " + (ANO_BASE - 1) + " (confraternização em 11/12) — e já é hora de planejar o primeiro trimestre." :
       "Hoje é " + DIAS_L[agora.getDay()] + ", " + agora.getDate() + " de " + MESES[agora.getMonth()].toLowerCase() + ".";
 
-    var proximas = ordenados(evs.filter(function (e) { return fimDe(e) >= hoje; })).slice(0, 6);
+    var proximas = ordenados(evs.filter(function (e) { return fimDe(e) >= hoje && !e.pessoaId; })).slice(0, 6);
     var prioritarias = ordenados(evs.filter(function (e) { return e.prioridade === "alta" && e.status !== "concluido" && fimDe(e) >= hoje && e.categoria !== "teste"; })).slice(0, 6);
 
     var lems = todosLembretes();
@@ -1783,7 +1951,8 @@ window.CONECTA_SEED = [
       "<h1>Calendário de Endomarketing <span>2027</span></h1>" +
       "<p>" + linhaTempo + " Acompanhe datas, campanhas e lembretes para que nenhuma ação de reconhecimento passe em branco.</p>" +
       '<div class="hero-acoes">' +
-      '<button class="btn btn-amarelo" data-abrir-mes="' + ANO_BASE + "-" + mesAtual + '">' + ic("calendar") + " Abrir " + MESES[mesAtual].toLowerCase() + " de " + ANO_BASE + "</button>" +
+      (agora.getFullYear() === ANO_BASE - 1 ? '<button class="btn btn-amarelo" data-abrir-mes="' + (ANO_BASE - 1) + "-" + agora.getMonth() + '">' + ic("calendar") + " Abrir " + MESES[agora.getMonth()].toLowerCase() + " de " + (ANO_BASE - 1) + "</button>" : "") +
+      '<button class="btn ' + (agora.getFullYear() === ANO_BASE - 1 ? "" : "btn-amarelo") + '" data-abrir-mes="' + ANO_BASE + "-" + mesAtual + '">' + ic("calendar") + " Abrir " + MESES[mesAtual].toLowerCase() + " de " + ANO_BASE + "</button>" +
       '<button class="btn" data-nav="lembretes">' + ic("bell") + " Central de lembretes</button>" +
       '<button class="btn" data-acao="exportar-ics">' + ic("download") + " Exportar para Google Agenda</button>" +
       "</div></div>" +
@@ -1791,7 +1960,7 @@ window.CONECTA_SEED = [
       "</section>";
 
     html += '<section class="kpis">' +
-      kpi("Eventos cadastrados", total, "em " + ANO_BASE + " e demais anos", "calendar", "#e51786", "") +
+      kpi("Eventos cadastrados", total, "fim de " + (ANO_BASE - 1) + " e " + ANO_BASE, "calendar", "#e51786", "") +
       kpi("Datas profissionais", prof.length, "reconhecimento por área", "briefcase", CAT.profissional.cor, "profissional") +
       kpi("Campanhas", camp.length, "de conscientização", "heart", CAT.campanha.cor, "campanha") +
       kpi("Ações prioritárias", alta.length, "prioridade alta", "star", "#ffcf00", "alta") +
@@ -1831,6 +2000,12 @@ window.CONECTA_SEED = [
 
     html += '<section class="card"><h2 class="card-titulo">' + ic("calendar") + "Próximas datas comemorativas</h2>" +
       '<ul class="lista">' + (proximas.length ? proximas.map(function (e) { return itemEvento(e, "dias"); }).join("") : '<li class="vazio">Sem próximas datas.</li>') + "</ul></section>";
+
+    var mesPes = agora.getFullYear() === ANO_BASE ? agora.getMonth() : 0;
+    var pesMes = eventosPessoasDoMes(mesPes);
+    html += '<section class="card"><h2 class="card-titulo">' + ic("users") + "Pessoas em " + MESES[mesPes].toLowerCase() + (agora.getFullYear() === ANO_BASE ? "" : " de " + ANO_BASE) + ' <button class="btn btn-p btn-texto acao" data-nav="pessoas">Abrir Pessoas</button></h2>' +
+      (estado.colaboradores.length ? (pesMes.length ? '<div class="pes-lista-mini">' + pesMes.map(linhaPessoaEv).join("") + "</div>" : '<div class="vazio">Nenhum aniversário, tempo de casa ou boas-vindas neste mês.</div>') :
+        '<div class="vazio">Cadastre os colaboradores para ver aniversariantes e tempo de casa aqui.<br><button class="btn btn-p btn-primario" data-acao="novo-colab" style="margin-top:10px">' + ic("plus") + " Adicionar pessoa</button></div>") + "</section>";
 
     html += '<section class="card"><h2 class="card-titulo">' + ic("star") + 'Ações prioritárias <button class="btn btn-p btn-texto acao" data-filtro-prio="alta">Ver todas</button></h2>' +
       '<p class="sub">Próximas datas de prioridade alta ainda não concluídas.</p>' +
@@ -2045,7 +2220,8 @@ window.CONECTA_SEED = [
     { n: 5, t: "Funcionamento dos filtros", d: "Aplica busca e filtros de categoria, público e prioridade e confere cada resultado." },
     { n: 6, t: "Funcionamento dos lembretes", d: "Confere os prazos 30/15/7/1 do evento de teste, a regra de prioridade baixa (só 7 dias) e a central." },
     { n: 7, t: "Exportação do arquivo .ics", d: "Gera o .ics do evento de teste, valida a estrutura (RFC 5545) e baixa o arquivo." },
-    { n: 8, t: "Permissão para notificações do navegador", d: "Solicita a permissão (Web Notifications API) e, se autorizada, envia uma notificação real." }
+    { n: 8, t: "Permissão para notificações do navegador", d: "Solicita a permissão (Web Notifications API) e, se autorizada, envia uma notificação real." },
+    { n: 9, t: "Pessoas: aniversários e tempo de casa", d: "Cadastra uma pessoa temporária e confere o aniversário, o tempo de casa, os lembretes, a edição e a remoção das datas geradas." }
   ];
   function renderTestes() {
     var r = estado.resultadosTestes || {};
@@ -2055,7 +2231,7 @@ window.CONECTA_SEED = [
 
     var html = '<div class="testes-grade"><section class="card"><h1 class="card-titulo" style="font-size:28px">' + ic("flask") + "Testes do Sistema</h1>" +
       '<p class="sub">Verificações executadas de verdade sobre as funções da aplicação. Os resultados ficam registrados.</p>' +
-      '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><span class="contagem">' + oks + "/8</span><span style=\"color:var(--texto-2);font-weight:700\">verificações aprovadas</span>" +
+      '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><span class="contagem">' + oks + "/" + TESTES.length + "</span><span style=\"color:var(--texto-2);font-weight:700\">verificações aprovadas</span>" +
       '<button class="btn btn-primario" style="margin-left:auto" data-testar="todos">' + ic("play") + " Executar todos</button></div><div class=\"testes\">";
     TESTES.forEach(function (t) {
       var res = r[t.n];
@@ -2240,6 +2416,30 @@ window.CONECTA_SEED = [
     }
   };
 
+  EXECUTORES[9] = function () {
+    var salvoCfg = clonar(estado.pessoasConfig);
+    estado.pessoasConfig = { aniversarios: true, tempoCasa: true, boasVindas: true };
+    var c = salvarColab({ nome: "Pessoa Teste QA", area: "Engenharia", aniversario: "02-29", admissao: (ANO_BASE - 5) + "-03-10", ativo: true });
+    try {
+      var aniv = porId("pessoa-aniv-" + c.id), casa = porId("pessoa-casa-" + c.id);
+      afirmar(aniv && aniv.data === ANO_BASE + "-02-28", "aniversário de 29/02 não foi gerado em 28/02/" + ANO_BASE);
+      afirmar(aniv.prioridade === "baixa" && lembretesDe(aniv).length === 1, "aniversário deveria ter só o lembrete de 7 dias");
+      afirmar(casa && casa.data === ANO_BASE + "-03-10" && /5 anos/.test(casa.titulo), "tempo de casa (5 anos) não foi gerado");
+      afirmar(casa.prioridade === "alta" && lembretesDe(casa).length === 4, "marco de 5 anos deveria ter prioridade alta e 4 lembretes");
+      afirmar(casa.publico.indexOf("Engenharia") > -1, "público da área não foi aplicado");
+      definirStatus(casa.id, "planejado");
+      salvarColab({ admissao: ANO_BASE + "-04-01" }, c.id);
+      afirmar(!porId("pessoa-casa-" + c.id) && porId("pessoa-integra-" + c.id), "admissão em " + ANO_BASE + " deveria virar boas-vindas");
+      salvarColab({ ativo: false }, c.id);
+      afirmar(!estado.eventos.some(function (e) { return e.pessoaId === c.id; }), "pessoa inativa não deveria gerar datas");
+      var gravado = JSON.parse(localStorage.getItem(CHAVE));
+      afirmar(gravado.colaboradores.some(function (x) { return x.id === c.id; }), "cadastro não foi gravado no localStorage");
+      return "29/02 → 28/02, 5 anos de casa (alta, 4 lembretes), boas-vindas, inativação e gravação conferidos";
+    } finally {
+      excluirColab(c.id);
+      estado.pessoasConfig = salvoCfg; sincronizarPessoas(); salvar();
+    }
+  };
   function executarTeste(n) {
     var fn = EXECUTORES[n];
     return Promise.resolve().then(function () { return fn(); }).then(function (res) {
@@ -2252,14 +2452,14 @@ window.CONECTA_SEED = [
   }
   function executarTodos() {
     // o teste 8 roda primeiro para aproveitar o clique do usuário (exigência dos navegadores)
-    var ordem = [8, 1, 2, 3, 4, 5, 6, 7];
+    var ordem = [8, 1, 2, 3, 4, 5, 6, 7, 9];
     var p = Promise.resolve();
     ordem.forEach(function (n) { p = p.then(function () { return executarTeste(n); }).then(function () { return espera(60); }); });
     return p.then(function () {
       ui.view = "testes"; render();
       var r = estado.resultadosTestes;
       var ok = TESTES.filter(function (t) { return r[t.n] && r[t.n].estado === "ok"; }).length;
-      toast(ok + " de 8 verificações aprovadas." + (r[4] && r[4].estado === "aguardando" ? " Atualize a página (F5) para concluir o teste de persistência." : ""), ok === 8 ? "ok" : "");
+      toast(ok + " de " + TESTES.length + " verificações aprovadas." + (r[4] && r[4].estado === "aguardando" ? " Atualize a página (F5) para concluir o teste de persistência." : ""), ok === TESTES.length ? "ok" : "");
     });
   }
   function verificarReloadPersistencia() {
@@ -2321,6 +2521,7 @@ window.CONECTA_SEED = [
       (ev.confirmada === false ? '<span class="tag tag-aviso">data a confirmar</span>' : "") + (ev.demo ? '<span class="tag tag-demo">demonstração</span>' : "") + "</div>" +
       '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
       '<div class="modal-corpo">' + avisoFds +
+      (ev.pessoaId ? '<div class="aviso-pessoa">' + ic("users") + ' Data gerada pelo cadastro de Pessoas. Nome e data são alterados lá; status, prioridade, sugestão e observações podem ser editados aqui. <button class="btn btn-p btn-texto" data-colab-editar="' + esc(ev.pessoaId) + '">Editar cadastro</button></div>' : "") +
       (ev.confirmada === false ? '<div class="aviso-conf">⚠ Data ou período ainda não confirmado oficialmente para ' + d.getFullYear() + ". Verifique a fonte antes de comunicar.</div>" : "") +
       '<div class="det-grade">' +
       det("Nome da comemoração", esc(ev.titulo), "tag", true) +
@@ -2359,6 +2560,7 @@ window.CONECTA_SEED = [
     $("#btnEditar", m).onclick = function () { abrirFormulario(ev.id); };
     $("#btnIcsUm", m).onclick = function () { baixar(nomeArquivo(ev.titulo) + ".ics", gerarICS([ev]), "text/calendar;charset=utf-8"); toast("Arquivo .ics gerado.", "ok"); };
     $("#btnExcluir", m).onclick = function () {
+      if (ev.pessoaId) { toast("Esta data vem do cadastro de Pessoas. Para removê-la, edite ou desative a pessoa (aba Pessoas).", "erro"); return; }
       confirmar("Excluir evento?", "“" + ev.titulo + "” será removido do calendário" + (ev.sistema ? " (é o evento de teste do sistema; você pode recriá-lo depois)" : "") + ".", "Excluir", true).then(function (ok) {
         if (!ok) return;
         excluirEvento(ev.id); fecharModal(); render(); toast("Evento excluído.", "ok");
@@ -2383,8 +2585,8 @@ window.CONECTA_SEED = [
     var html = '<div class="modal-cab"><div class="faixa"></div><h2 id="modalTitulo">' + (id ? "Editar evento" : "Novo evento") + "</h2>" +
       '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
       '<form id="formEvento" class="modal-corpo" novalidate><div class="form">' +
-      '<label class="full">Nome da comemoração *<input class="input" name="titulo" required maxlength="140" value="' + esc(ev.titulo) + '" autofocus></label>' +
-      '<label>Data *<input class="input" type="date" name="data" required value="' + esc(ev.data) + '"></label>' +
+      '<label class="full">Nome da comemoração *<input class="input" name="titulo" required maxlength="140" value="' + esc(ev.titulo) + '"' + (ev.pessoaId ? " readonly" : " autofocus") + "></label>" +
+      '<label>Data *<input class="input" type="date" name="data" required value="' + esc(ev.data) + '"' + (ev.pessoaId ? " readonly" : "") + '>' + (ev.pessoaId ? '<span class="dica">Vem do cadastro de Pessoas.</span>' : "") + "</label>" +
       '<label>Data final <span class="dica">(opcional — para campanhas de vários dias)</span><input class="input" type="date" name="dataFim" value="' + esc(ev.dataFim) + '"></label>' +
       '<label>Categoria<select class="input" name="categoria">' + sel(catMapa, ev.categoria) + "</select></label>" +
       '<label>Tipo de data<select class="input" name="tipo">' + sel(TIPOS, ev.tipo) + "</select></label>" +
@@ -2438,6 +2640,8 @@ window.CONECTA_SEED = [
       '<div class="modal-corpo"><div class="form">' +
       '<label class="full">Quais eventos?<select class="input" id="expEscopo">' +
       '<option value="todos">Todos os eventos (' + estado.eventos.length + ")</option>" +
+      '<option value="sem-pessoas">Calendário sem as datas de Pessoas (' + estado.eventos.filter(function (e) { return !e.pessoaId; }).length + ")</option>" +
+      (estado.eventos.some(function (e) { return e.pessoaId; }) ? '<option value="pessoas">Somente Pessoas: aniversários, tempo de casa e boas-vindas (' + estado.eventos.filter(function (e) { return e.pessoaId; }).length + ")</option>" : "") +
       '<option value="pendentes">Somente não concluídos (' + estado.eventos.filter(function (e) { return e.status !== "concluido"; }).length + ")</option>" +
       (filtrosAtivos(ui.filtros) ? '<option value="filtrados">Somente os filtrados no calendário (' + filtrados.length + ")</option>" : "") +
       '<option value="teste">Somente o evento de teste</option></select></label>' +
@@ -2453,7 +2657,7 @@ window.CONECTA_SEED = [
     abrirModal(html);
     $("#btnExp").onclick = function () {
       var esc_ = $("#expEscopo").value;
-      var lista = esc_ === "pendentes" ? estado.eventos.filter(function (e) { return e.status !== "concluido"; }) :
+      var lista = esc_ === "sem-pessoas" ? estado.eventos.filter(function (e) { return !e.pessoaId; }) : esc_ === "pessoas" ? estado.eventos.filter(function (e) { return e.pessoaId; }) : esc_ === "pendentes" ? estado.eventos.filter(function (e) { return e.status !== "concluido"; }) :
         esc_ === "filtrados" ? filtrados : esc_ === "teste" ? estado.eventos.filter(function (e) { return e.id === "teste-calendario"; }) : estado.eventos;
       if (!lista.length) { toast("Nenhum evento para exportar.", "erro"); return; }
       var ics = gerarICS(lista, { lembretesComoEventos: $("#expLembretes").checked });
@@ -2466,9 +2670,335 @@ window.CONECTA_SEED = [
   /* ------------------------------------------------------------------ *
    * Renderização geral e eventos de interface
    * ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ *
+   * Pessoas: cadastro de colaboradores → aniversários, tempo de casa e
+   * boas-vindas gerados automaticamente no calendário de ANO_BASE.
+   * Por privacidade (LGPD), o aniversário guarda apenas dia e mês.
+   * ------------------------------------------------------------------ */
+  var AREAS = PUBLICOS.filter(function (p) { return ["Todos os colaboradores", "Mulheres", "Homens", "Mães", "Pais", "Famílias"].indexOf(p) === -1; });
+
+  function prepararPessoas(d) {
+    if (!Array.isArray(d.colaboradores)) d.colaboradores = [];
+    var cfg = d.pessoasConfig || {};
+    d.pessoasConfig = {
+      aniversarios: cfg.aniversarios !== false,
+      tempoCasa: cfg.tempoCasa !== false,
+      boasVindas: cfg.boasVindas !== false
+    };
+    d.colaboradores = d.colaboradores.map(colabBase);
+    return d;
+  }
+  function colabBase(c) {
+    return {
+      id: c.id || uid("pes"), nome: String(c.nome || "").trim(), area: String(c.area || "").trim(),
+      aniversario: c.aniversario || "", admissao: c.admissao || "", ativo: c.ativo !== false
+    };
+  }
+  // "MM-DD" válido?
+  function mmddValido(s) {
+    if (!/^\d{2}-\d{2}$/.test(s || "")) return false;
+    var p = s.split("-").map(Number);
+    return p[0] >= 1 && p[0] <= 12 && p[1] >= 1 && p[1] <= new Date(2024, p[0], 0).getDate(); // 2024: aceita 29/02
+  }
+  function fmtMMDD(s) { return mmddValido(s) ? s.slice(3) + "/" + s.slice(0, 2) : "—"; }
+  // Data no ano-base; 29/02 vira 28/02 em anos não bissextos
+  function dataNoAno(mmdd, ano) {
+    var m = Number(mmdd.slice(0, 2)), d = Number(mmdd.slice(3));
+    var max = new Date(ano, m, 0).getDate();
+    return ano + "-" + pad(m) + "-" + pad(Math.min(d, max));
+  }
+  function publicoDaArea(area) {
+    var n = norm(area);
+    if (!n) return ["Todos os colaboradores"];
+    for (var i = 0; i < AREAS.length; i++) if (norm(AREAS[i]) === n) return [AREAS[i]];
+    for (var j = 0; j < AREAS.length; j++) {
+      var partes = norm(AREAS[j]).split(/\s*[\/e,]\s*|\s+/).filter(function (x) { return x.length > 2; });
+      if (partes.some(function (pp) { return n.indexOf(pp) > -1 || pp.indexOf(n) > -1; })) return [AREAS[j]];
+    }
+    return ["Todos os colaboradores"];
+  }
+  function primeiroNome(nome) { return String(nome).trim().split(/\s+/)[0] || nome; }
+
+  // Lista dos eventos que o cadastro deve gerar
+  function eventosDesejados() {
+    var cfg = estado.pessoasConfig, ano = ANO_BASE, lista = [];
+    estado.colaboradores.forEach(function (c) {
+      if (!c.ativo || !c.nome) return;
+      var rotArea = c.area ? " (" + c.area + ")" : "";
+      var pub = publicoDaArea(c.area);
+      var comum = { categoria: "pessoas", tipo: "interno", publico: pub, pessoaId: c.id, fonte: "Cadastro interno de colaboradores (aba Pessoas)", fonteUrl: "", confirmada: true };
+      if (cfg.aniversarios && mmddValido(c.aniversario)) {
+        lista.push(Object.assign({}, comum, {
+          id: "pessoa-aniv-" + c.id, pessoaTipo: "aniversario", titulo: "Aniversário — " + c.nome,
+          data: dataNoAno(c.aniversario, ano), prioridade: "baixa", antecedencia: "7 dias",
+          contexto: "Aniversário de " + c.nome + rotArea + (c.aniversario === "02-29" ? ". Nascido(a) em 29/02: em " + ano + " a data foi ajustada para 28/02." : ".") + " Gerado automaticamente a partir do cadastro de Pessoas.",
+          sugestao: "Mensagem ou cartão assinado pela liderança e parabéns no canal interno (somente se " + primeiroNome(c.nome) + " autorizar a divulgação). Incluir na comemoração mensal dos aniversariantes."
+        }));
+      }
+      if (/^\d{4}-\d{2}-\d{2}$/.test(c.admissao)) {
+        var anoAdm = Number(c.admissao.slice(0, 4)), mmdd = c.admissao.slice(5);
+        var anos = ano - anoAdm;
+        if (cfg.tempoCasa && anos >= 1) {
+          var marco = anos === 1 || anos % 5 === 0;
+          lista.push(Object.assign({}, comum, {
+            id: "pessoa-casa-" + c.id, pessoaTipo: "tempo-casa",
+            titulo: c.nome + " — " + anos + (anos > 1 ? " anos" : " ano") + " de Catarinna’s",
+            data: dataNoAno(mmdd, ano), prioridade: marco ? "alta" : "baixa", antecedencia: marco ? "30 dias" : "7 dias",
+            contexto: "Aniversário de empresa de " + c.nome + rotArea + ": admissão em " + fmtData(c.admissao) + ". " + (marco ? "Marco de carreira (" + anos + (anos > 1 ? " anos" : " ano") + ")." : "") + " Gerado automaticamente a partir do cadastro de Pessoas.",
+            sugestao: marco ? "Reconhecimento especial: certificado ou lembrança comemorativa, mensagem da diretoria e menção na reunião geral, com a história de " + primeiroNome(c.nome) + " na empresa." :
+              "Mensagem de agradecimento do gestor direto e menção no canal interno."
+          }));
+        }
+        if (cfg.boasVindas && anoAdm === ano) {
+          lista.push(Object.assign({}, comum, {
+            id: "pessoa-integra-" + c.id, pessoaTipo: "boas-vindas", titulo: "Boas-vindas — " + c.nome + " (integração)",
+            data: c.admissao, prioridade: "media", antecedencia: "15 dias",
+            contexto: "Admissão de " + c.nome + rotArea + " em " + fmtData(c.admissao) + ". Gerado automaticamente a partir do cadastro de Pessoas.",
+            sugestao: "Kit de boas-vindas, apresentação à equipe, padrinho/madrinha na área, agenda de integração da primeira semana e post de boas-vindas no canal interno."
+          }));
+        }
+      }
+    });
+    return lista;
+  }
+  // Cria, atualiza e remove os eventos gerados. Preserva status, observações, prioridade e sugestão editadas.
+  function sincronizarPessoas() {
+    if (!estado || !estado.colaboradores) return false;
+    var desejados = eventosDesejados(), mapa = {}, mudou = false;
+    desejados.forEach(function (d) { mapa[d.id] = d; });
+    estado.eventos = estado.eventos.filter(function (e) {
+      if (e.pessoaId && !mapa[e.id]) { limparLembretes(e.id); mudou = true; return false; }
+      return true;
+    });
+    desejados.forEach(function (d) {
+      var ev = porId(d.id);
+      if (!ev) { estado.eventos.push(eventoBase(d)); mudou = true; return; }
+      var fixos = ["titulo", "data", "publico", "categoria", "tipo", "contexto", "fonte", "pessoaId", "pessoaTipo", "antecedencia"];
+      if (ev.data !== d.data) limparLembretes(ev.id);
+      fixos.forEach(function (k) {
+        if (JSON.stringify(ev[k]) !== JSON.stringify(d[k])) { ev[k] = clonar(d[k]); mudou = true; }
+      });
+      if (ev.dataFim) { ev.dataFim = ""; mudou = true; }
+    });
+    return mudou;
+  }
+  function validarColab(c) {
+    var erros = [];
+    if (!c.nome) erros.push("Informe o nome.");
+    if (c.aniversario && !mmddValido(c.aniversario)) erros.push("Aniversário inválido (use dia e mês).");
+    if (c.admissao && !(/^\d{4}-\d{2}-\d{2}$/.test(c.admissao) && dataValida(c.admissao))) erros.push("Data de admissão inválida.");
+    if (c.admissao && dataValida(c.admissao) && Number(c.admissao.slice(0, 4)) > ANO_BASE) erros.push("A admissão não pode ser posterior a " + ANO_BASE + ".");
+    if (!c.aniversario && !c.admissao) erros.push("Informe o aniversário ou a data de admissão.");
+    return erros;
+  }
+  function salvarColab(dados, id) {
+    var c = colabBase(Object.assign({}, id ? colabPorId(id) : {}, dados, id ? { id: id } : {}));
+    var erros = validarColab(c);
+    if (erros.length) throw new Error(erros.join(" "));
+    if (id) { var i = estado.colaboradores.findIndex(function (x) { return x.id === id; }); estado.colaboradores[i] = c; }
+    else estado.colaboradores.push(c);
+    sincronizarPessoas(); salvar();
+    return c;
+  }
+  function excluirColab(id) {
+    estado.colaboradores = estado.colaboradores.filter(function (c) { return c.id !== id; });
+    sincronizarPessoas(); salvar();
+  }
+  function colabPorId(id) { for (var i = 0; i < estado.colaboradores.length; i++) if (estado.colaboradores[i].id === id) return estado.colaboradores[i]; return null; }
+
+  // Importação: uma pessoa por linha — Nome ; Área ; Aniversário (dd/mm) ; Admissão (dd/mm/aaaa)
+  function lerDataBR(s, comAno) {
+    s = String(s || "").trim();
+    if (!s) return "";
+    var m = s.match(/^(\d{1,2})[\/.-](\d{1,2})(?:[\/.-](\d{2,4}))?$/);
+    var iso_ = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (iso_) return comAno ? s : iso_[2] + "-" + iso_[3];
+    if (!m) return null;
+    var dd = pad(Number(m[1])), mm = pad(Number(m[2]));
+    if (!comAno) return mm + "-" + dd;
+    if (!m[3]) return null;
+    var aa = Number(m[3]); if (aa < 100) aa += aa > 50 ? 1900 : 2000;
+    return aa + "-" + mm + "-" + dd;
+  }
+  function importarTexto(texto) {
+    var linhas = String(texto || "").split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean);
+    var novos = [], erros = [], atualizados = 0;
+    linhas.forEach(function (l, i) {
+      var cols = l.indexOf("\t") > -1 ? l.split("\t") : l.indexOf(";") > -1 ? l.split(";") : l.split(",");
+      cols = cols.map(function (c) { return c.trim().replace(/^"|"$/g, ""); });
+      if (i === 0 && /nome/i.test(cols[0])) return; // cabeçalho
+      var c = { nome: cols[0], area: cols[1] || "", aniversario: lerDataBR(cols[2], false), admissao: lerDataBR(cols[3], true) };
+      if (c.aniversario === null || c.admissao === null) { erros.push("Linha " + (i + 1) + " (" + (cols[0] || "?") + "): data em formato não reconhecido"); return; }
+      // aniversário com ano completo (dd/mm/aaaa) é aceito, mas só dia e mês são guardados
+      var e = validarColab(colabBase(c));
+      if (e.length) { erros.push("Linha " + (i + 1) + " (" + (cols[0] || "?") + "): " + e.join(" ")); return; }
+      novos.push(c);
+    });
+    novos.forEach(function (c) {
+      var existente = estado.colaboradores.filter(function (x) { return norm(x.nome) === norm(c.nome); })[0];
+      if (existente) { Object.assign(existente, colabBase(Object.assign({}, existente, c, { id: existente.id }))); atualizados++; }
+      else estado.colaboradores.push(colabBase(c));
+    });
+    sincronizarPessoas(); salvar();
+    return { incluidos: novos.length - atualizados, atualizados: atualizados, erros: erros };
+  }
+  function exportarCSV() {
+    var linhas = ["Nome;Área;Aniversário (dd/mm);Admissão (dd/mm/aaaa);Ativo"];
+    estado.colaboradores.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome, "pt-BR"); }).forEach(function (c) {
+      linhas.push([c.nome, c.area, mmddValido(c.aniversario) ? fmtMMDD(c.aniversario) : "", c.admissao ? fmtData(c.admissao) : "", c.ativo ? "sim" : "não"].map(function (x) { return String(x).replace(/;/g, ","); }).join(";"));
+    });
+    baixar("catarinnas-conecta-colaboradores.csv", "﻿" + linhas.join("\r\n"), "text/csv;charset=utf-8");
+  }
+
+  function eventosPessoasDoMes(mes) {
+    var pref = ANO_BASE + "-" + pad(mes + 1);
+    return ordenados(estado.eventos.filter(function (e) { return e.pessoaId && e.data.slice(0, 7) === pref; }));
+  }
+  function iconePessoa(t) { return t === "aniversario" ? "🎂" : t === "tempo-casa" ? "🏅" : "👋"; }
+  function linhaPessoaEv(e) {
+    var d = pd(e.data);
+    return '<button class="pes-ev" data-evento="' + esc(e.id) + '"><span class="pes-dia">' + pad(d.getDate()) + "</span><span>" + iconePessoa(e.pessoaTipo) + " " + esc(e.titulo.replace(/^Aniversário — /, "")) + "</span>" +
+      (e.prioridade === "alta" ? '<span class="tag tag-alta" style="margin-left:auto">marco</span>' : "") + "</button>";
+  }
+
+  function renderPessoas() {
+    var cs = estado.colaboradores.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome, "pt-BR"); });
+    var ativos = cs.filter(function (c) { return c.ativo; }).length;
+    var evs = estado.eventos.filter(function (e) { return e.pessoaId; });
+    var nAniv = evs.filter(function (e) { return e.pessoaTipo === "aniversario"; }).length;
+    var nCasa = evs.filter(function (e) { return e.pessoaTipo === "tempo-casa"; }).length;
+    var nMarco = evs.filter(function (e) { return e.pessoaTipo === "tempo-casa" && e.prioridade === "alta"; }).length;
+    var nBoas = evs.filter(function (e) { return e.pessoaTipo === "boas-vindas"; }).length;
+    var cfg = estado.pessoasConfig;
+    var q = ui.pesBusca || "";
+
+    var html = '<section class="card pes-topo"><div><h1 class="card-titulo" style="font-size:28px">' + ic("users") + "Pessoas</h1>" +
+      '<p class="sub" style="margin:0">Cadastre quem faz a Catarinna’s acontecer. Aniversários, tempo de casa e boas-vindas entram sozinhos no calendário de ' + ANO_BASE + ", com lembretes e exportação para o Google Agenda.</p></div>" +
+      '<div class="pes-acoes"><button class="btn btn-primario" data-acao="novo-colab">' + ic("plus") + " Adicionar pessoa</button>" +
+      '<button class="btn" data-acao="importar-colab">' + ic("upload") + " Importar lista</button>" +
+      (cs.length ? '<button class="btn" data-acao="exportar-colab">' + ic("download") + " Exportar CSV</button>" : "") + "</div></section>";
+
+    html += '<section class="kpis kpis-4">' +
+      kpi("Pessoas ativas", ativos, cs.length - ativos ? (cs.length - ativos) + " inativas" : "no cadastro", "users", CAT.pessoas.cor, "") +
+      kpi("Aniversários", nAniv, "no calendário de " + ANO_BASE, "heart", "#e51786", "") +
+      kpi("Tempo de casa", nCasa, nMarco + " marcos (1, 5, 10, 15… anos)", "star", "#ffcf00", "") +
+      kpi("Boas-vindas", nBoas, "admissões em " + ANO_BASE, "sun", CAT.colaboradores.cor, "") + "</section>";
+
+    html += '<div class="painel-grade"><div class="painel-col">';
+    // Mês a mês
+    html += '<section class="card"><h2 class="card-titulo">' + ic("calendar") + "Mês a mês em " + ANO_BASE + "</h2>";
+    if (!evs.length) {
+      html += '<div class="vazio">Nenhuma data de pessoas ainda. Adicione colaboradores ou importe a lista do RH.</div>';
+    } else {
+      html += '<div class="pes-meses">';
+      for (var m = 0; m < 12; m++) {
+        var doMes = eventosPessoasDoMes(m);
+        html += '<div class="pes-mes"><div class="pes-mes-cab"><button class="btn-texto" data-abrir-mes="' + ANO_BASE + "-" + m + '">' + MESES[m] + "</button><em>" + doMes.length + "</em></div>" +
+          (doMes.length ? doMes.map(linhaPessoaEv).join("") : '<div class="pes-nada">—</div>') + "</div>";
+      }
+      html += "</div>";
+    }
+    html += "</section></div>";
+
+    // Lista + configurações
+    html += '<div class="painel-col"><section class="card"><h2 class="card-titulo">' + ic("users") + "Cadastro <span class=\"pes-qtd\">" + cs.length + "</span></h2>" +
+      '<label class="busca" style="margin-bottom:10px">' + ic("search") + '<input id="pesBusca" class="input" type="search" placeholder="Buscar por nome ou área" value="' + esc(q) + '"></label>' +
+      '<div class="pes-lista" id="pesLista">' + listaColabHTML(cs, q) + "</div></section>";
+
+    html += '<section class="card"><h2 class="card-titulo">' + ic("zap") + "O que gerar no calendário</h2><div class=\"pes-cfg\">" +
+      cfgCheck("aniversarios", cfg.aniversarios, "Aniversários", "Prioridade baixa: lembrete 7 dias antes.") +
+      cfgCheck("tempoCasa", cfg.tempoCasa, "Tempo de casa", "Marcos de 1, 5, 10, 15… anos têm prioridade alta (lembretes 30/15/7/1). Os demais, baixa.") +
+      cfgCheck("boasVindas", cfg.boasVindas, "Boas-vindas", "Para admissões em " + ANO_BASE + ". Prioridade média (lembretes 30/15/7/1).") + "</div>" +
+      '<p class="sub" style="margin:12px 0 0">Status, observações, prioridade e sugestão dessas datas podem ser editados no próprio evento e são mantidos. Nome e data sempre vêm do cadastro.</p></section>';
+
+    html += '<section class="card"><h2 class="card-titulo">' + ic("info") + "Privacidade (LGPD)</h2><ul class=\"regras\">" +
+      "<li>Guardamos apenas <b>dia e mês</b> do aniversário (sem ano), além do nome, da área e da data de admissão.</li>" +
+      "<li>Os dados ficam somente neste navegador. Ao exportar o .ics ou o backup, guarde os arquivos com cuidado.</li>" +
+      "<li>Divulgue aniversários no mural ou canal interno apenas de quem concordou. Quem preferir pode ficar fora do cadastro ou ser marcado como inativo.</li></ul></section>";
+    html += "</div></div>";
+    return html;
+  }
+  function cfgCheck(k, v, t, d) {
+    return '<label class="pes-check"><input type="checkbox" data-pcfg="' + k + '"' + (v ? " checked" : "") + "><span><b>" + t + "</b><small>" + d + "</small></span></label>";
+  }
+  function listaColabHTML(cs, q) {
+    var nq = norm(q).trim();
+    var lista = nq ? cs.filter(function (c) { return norm(c.nome + " " + c.area).indexOf(nq) > -1; }) : cs;
+    if (!cs.length) return '<div class="vazio">Ninguém cadastrado ainda.<br><button class="btn btn-p btn-primario" data-acao="novo-colab" style="margin-top:10px">' + ic("plus") + " Adicionar a primeira pessoa</button></div>";
+    if (!lista.length) return '<div class="vazio">Nenhum resultado para a busca.</div>';
+    return lista.map(function (c) {
+      var anos = c.admissao ? ANO_BASE - Number(c.admissao.slice(0, 4)) : null;
+      return '<div class="pes-item' + (c.ativo ? "" : " inativo") + '"><span class="pes-av">' + esc(iniciais(c.nome)) + "</span>" +
+        '<div class="pes-info"><b>' + esc(c.nome) + (c.ativo ? "" : ' <span class="tag">inativo</span>') + "</b><small>" + esc(c.area || "Área não informada") +
+        " · 🎂 " + fmtMMDD(c.aniversario) + (c.admissao ? " · desde " + fmtData(c.admissao) + (anos >= 1 ? " (" + anos + (anos > 1 ? " anos" : " ano") + " em " + ANO_BASE + ")" : "") : "") + "</small></div>" +
+        '<button class="btn btn-icone btn-texto" data-colab-editar="' + esc(c.id) + '" title="Editar" aria-label="Editar ' + esc(c.nome) + '">' + ic("edit") + "</button>" +
+        '<button class="btn btn-icone btn-texto btn-perigo" data-colab-excluir="' + esc(c.id) + '" title="Excluir" aria-label="Excluir ' + esc(c.nome) + '">' + ic("trash") + "</button></div>";
+    }).join("");
+  }
+  function iniciais(n) { var p = String(n).trim().split(/\s+/); return ((p[0] || "")[0] || "") + (p.length > 1 ? (p[p.length - 1][0] || "") : ""); }
+
+  function abrirFormColab(id) {
+    var c = id ? colabPorId(id) : colabBase({ id: "novo" });
+    if (!c) return;
+    var dia = mmddValido(c.aniversario) ? Number(c.aniversario.slice(3)) : "";
+    var mes = mmddValido(c.aniversario) ? Number(c.aniversario.slice(0, 2)) : "";
+    var opsDia = '<option value="">Dia</option>'; for (var d = 1; d <= 31; d++) opsDia += '<option value="' + d + '"' + (d === dia ? " selected" : "") + ">" + d + "</option>";
+    var opsMes = '<option value="">Mês</option>'; for (var m = 1; m <= 12; m++) opsMes += '<option value="' + m + '"' + (m === mes ? " selected" : "") + ">" + MESES[m - 1] + "</option>";
+    var areas = AREAS.slice(); if (c.area && areas.indexOf(c.area) === -1) areas.push(c.area);
+    var html = '<div class="modal-cab" style="--faixa:' + CAT.pessoas.cor + '"><div class="faixa"></div><h2 id="modalTitulo">' + (id ? "Editar pessoa" : "Adicionar pessoa") + "</h2>" +
+      '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
+      '<form id="formColab" class="modal-corpo" novalidate><div class="form">' +
+      '<label class="full">Nome *<input class="input" name="nome" required maxlength="100" value="' + esc(c.nome) + '" autofocus></label>' +
+      '<label class="full">Área<input class="input" name="area" list="listaAreas" maxlength="60" value="' + esc(c.area) + '" placeholder="Ex.: Comercial / Vendas"><datalist id="listaAreas">' +
+      areas.map(function (a) { return '<option value="' + esc(a) + '">'; }).join("") + '</datalist><span class="dica">Escolha da lista para que os filtros por público funcionem.</span></label>' +
+      '<div><div class="form-rot">Aniversário (dia e mês)</div><div class="pes-dm"><select class="input" name="dia">' + opsDia + '</select><select class="input" name="mes">' + opsMes + '</select></div><span class="dica">Não guardamos o ano de nascimento.</span></div>' +
+      '<label>Data de admissão<input class="input" type="date" name="admissao" value="' + esc(c.admissao) + '"><span class="dica">Gera o tempo de casa (ou boas-vindas, se for em ' + ANO_BASE + ").</span></label>" +
+      '<label class="full pes-check" style="display:flex"><input type="checkbox" name="ativo"' + (c.ativo ? " checked" : "") + '><span><b>Ativo</b><small>Desmarque para manter o cadastro sem gerar datas no calendário.</small></span></label>' +
+      '<div class="full erro-form" id="erroColab" role="alert"></div></div></form>' +
+      '<div class="modal-rodape"><button class="btn" data-fechar>Cancelar</button><button class="btn btn-primario" id="btnSalvarColab">' + ic("save") + " Salvar</button></div>";
+    abrirModal(html);
+    var form = $("#formColab");
+    var enviar = function (e) {
+      if (e) e.preventDefault();
+      var fd = new FormData(form);
+      var dd = fd.get("dia"), mm = fd.get("mes");
+      if ((dd && !mm) || (!dd && mm)) { $("#erroColab").textContent = "Informe o dia e o mês do aniversário."; return; }
+      var dados = { nome: (fd.get("nome") || "").trim(), area: (fd.get("area") || "").trim(), aniversario: dd && mm ? pad(Number(mm)) + "-" + pad(Number(dd)) : "", admissao: fd.get("admissao") || "", ativo: !!fd.get("ativo") };
+      try {
+        var salvo = salvarColab(dados, id || null);
+        fecharModal(); renderConteudo(); atualizarBadge();
+        toast(id ? "Cadastro de " + primeiroNome(salvo.nome) + " atualizado." : primeiroNome(salvo.nome) + " foi adicionado(a). As datas já estão no calendário.", "ok");
+      } catch (err) { $("#erroColab").textContent = err.message; }
+    };
+    form.addEventListener("submit", enviar);
+    $("#btnSalvarColab").onclick = enviar;
+  }
+  function abrirImportacao() {
+    var html = '<div class="modal-cab" style="--faixa:' + CAT.pessoas.cor + '"><div class="faixa"></div><h2 id="modalTitulo">Importar lista de pessoas</h2>' +
+      '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
+      '<div class="modal-corpo"><p style="margin-top:0">Copie as colunas da planilha do RH (Excel ou Google Planilhas) e cole abaixo, <b>uma pessoa por linha</b>, nesta ordem:</p>' +
+      '<p><code>Nome ; Área ; Aniversário (dd/mm) ; Admissão (dd/mm/aaaa)</code></p>' +
+      '<p class="sub" style="margin:0 0 10px">Funciona com colunas separadas por tabulação (colagem direta da planilha), ponto e vírgula ou vírgula. Aniversário ou admissão podem ficar em branco (mas não os dois). Se o aniversário vier com o ano, só dia e mês são guardados. Nomes já cadastrados são atualizados.</p>' +
+      '<textarea class="input" id="txtImport" rows="9" placeholder="Ana Souza;Comercial / Vendas;14/03;02/05/2019&#10;Bruno Lima;Técnicos e eletricistas;27/11;10/01/2022"></textarea>' +
+      '<label class="menu-arquivo btn btn-p" style="margin-top:10px;display:inline-flex">' + ic("upload") + ' Ou escolher um arquivo .csv/.txt<input type="file" id="arqImport" accept=".csv,.txt,text/csv,text/plain" hidden></label>' +
+      '<div class="erro-form" id="erroImport" role="alert" style="margin-top:10px"></div></div>' +
+      '<div class="modal-rodape"><button class="btn" data-fechar>Cancelar</button><button class="btn btn-primario" id="btnImportar">' + ic("upload") + " Importar</button></div>";
+    abrirModal(html);
+    $("#arqImport").onchange = function () {
+      var f = this.files && this.files[0]; if (!f) return;
+      var r = new FileReader(); r.onload = function () { $("#txtImport").value = String(r.result).replace(/^﻿/, ""); }; r.readAsText(f);
+    };
+    $("#btnImportar").onclick = function () {
+      var r = importarTexto($("#txtImport").value);
+      if (!r.incluidos && !r.atualizados) { $("#erroImport").innerHTML = r.erros.length ? esc(r.erros.slice(0, 6).join(" · ")) : "Cole ao menos uma linha."; return; }
+      fecharModal(); renderConteudo(); atualizarBadge();
+      toast(r.incluidos + " incluída(s), " + r.atualizados + " atualizada(s)" + (r.erros.length ? ". " + r.erros.length + " linha(s) ignorada(s): " + r.erros.slice(0, 3).join(" · ") : "."), r.erros.length ? "" : "ok", { titulo: "Importação concluída" });
+    };
+  }
+
   function renderConteudo() {
     var main = $("#conteudo");
-    var html = ui.view === "mes" ? renderMes() : ui.view === "lembretes" ? renderLembretes() : ui.view === "testes" ? renderTestes() : renderPainel();
+    var html = ui.view === "mes" ? renderMes() : ui.view === "lembretes" ? renderLembretes() : ui.view === "testes" ? renderTestes() : ui.view === "pessoas" ? renderPessoas() : renderPainel();
     main.innerHTML = html;
     $$(".nav-btn").forEach(function (b) { b.classList.toggle("ativo", b.getAttribute("data-nav") === ui.view); });
     if (ui.view === "mes") ligarFiltros();
@@ -2477,7 +3007,7 @@ window.CONECTA_SEED = [
     lerRota();
     renderConteudo();
     atualizarBadge();
-    var titulo = { painel: "Painel", mes: MESES[ui.mes] + " " + ui.mesAno, lembretes: "Lembretes", testes: "Testes do Sistema" }[ui.view];
+    var titulo = { painel: "Painel", mes: MESES[ui.mes] + " " + ui.mesAno, lembretes: "Lembretes", pessoas: "Pessoas", testes: "Testes do Sistema" }[ui.view];
     document.title = titulo + " · Catarinna’s Conecta 2027";
   }
   function atualizarBadge() {
@@ -2538,6 +3068,14 @@ window.CONECTA_SEED = [
       }));
       return;
     }
+    if ((a = alvo.getAttribute("data-colab-editar"))) { abrirFormColab(a); return; }
+    if ((a = alvo.getAttribute("data-colab-excluir"))) {
+      var cx = colabPorId(a); if (!cx) return;
+      confirmar("Excluir " + cx.nome + "?", "O cadastro e as datas geradas (aniversário, tempo de casa, boas-vindas) serão removidos do calendário. Para apenas parar de gerar datas, edite e desmarque “Ativo”.", "Excluir", true).then(function (ok) {
+        if (ok) { excluirColab(a); renderConteudo(); atualizarBadge(); toast("Cadastro excluído.", "ok"); }
+      });
+      return;
+    }
     if ((a = alvo.getAttribute("data-acao"))) { executarAcao(a); return; }
   });
 
@@ -2545,6 +3083,9 @@ window.CONECTA_SEED = [
     var menu = $("#menuMais"); menu.hidden = true;
     switch (a) {
       case "exportar-ics": abrirExportacao(); break;
+      case "novo-colab": abrirFormColab(null); break;
+      case "importar-colab": abrirImportacao(); break;
+      case "exportar-colab": exportarCSV(); toast("Lista exportada em CSV (abre no Excel).", "ok"); break;
       case "ics-teste": var t = porId("teste-calendario"); if (t) { baixar("teste-catarinnas-conecta.ics", gerarICS([t]), "text/calendar;charset=utf-8"); toast("Arquivo .ics do evento de teste gerado.", "ok"); } break;
       case "pedir-permissao":
         pedirPermissao().then(function (p) {
@@ -2573,9 +3114,11 @@ window.CONECTA_SEED = [
         toast("Backup baixado. Guarde o arquivo em local seguro.", "ok");
         break;
       case "restaurar-original":
-        confirmar("Restaurar calendário original?", "Todos os eventos, status, observações e lembretes voltarão ao estado inicial. Recomendamos baixar um backup antes.", "Restaurar", true).then(function (ok) {
+        confirmar("Restaurar calendário original?", "Todos os eventos, status, observações e lembretes voltarão ao estado inicial (o cadastro de Pessoas é mantido). Recomendamos baixar um backup antes.", "Restaurar", true).then(function (ok) {
           if (!ok) return;
-          estado = estadoInicial(); salvar(); render(); toast("Calendário original restaurado.", "ok");
+          var pes = estado.colaboradores, cfgp = estado.pessoasConfig;
+          estado = estadoInicial(); estado.colaboradores = pes; estado.pessoasConfig = cfgp; sincronizarPessoas();
+          salvar(); render(); toast("Calendário original restaurado. O cadastro de Pessoas foi mantido.", "ok");
         });
         break;
     }
@@ -2603,11 +3146,26 @@ window.CONECTA_SEED = [
           if (!ok) return;
           d.eventos = d.eventos.map(eventoBase);
           d.lembretesFeitos = d.lembretesFeitos || {}; d.notificados = d.notificados || {}; d.resultadosTestes = d.resultadosTestes || {};
-          estado = d; salvar(); render(); toast("Backup restaurado.", "ok");
+          prepararPessoas(d); estado = d; sincronizarPessoas(); salvar(); render(); toast("Backup restaurado.", "ok");
         });
       } catch (err) { toast("Arquivo de backup inválido: " + err.message, "erro"); }
     };
     leitor.readAsText(arq);
+  });
+
+  // Pessoas: busca na lista e opções de geração
+  document.addEventListener("input", function (e) {
+    if (e.target && e.target.id === "pesBusca") {
+      ui.pesBusca = e.target.value;
+      var l = $("#pesLista"); if (l) l.innerHTML = listaColabHTML(estado.colaboradores.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome, "pt-BR"); }), ui.pesBusca);
+    }
+  });
+  document.addEventListener("change", function (e) {
+    var k = e.target && e.target.getAttribute && e.target.getAttribute("data-pcfg");
+    if (!k) return;
+    estado.pessoasConfig[k] = e.target.checked;
+    sincronizarPessoas(); salvar(); renderConteudo(); atualizarBadge();
+    toast("Calendário atualizado.", "ok");
   });
 
   // Teclado / fundo do modal
@@ -2629,6 +3187,7 @@ window.CONECTA_SEED = [
   /* ------------------------------------------------------------------ *
    * Inicialização
    * ------------------------------------------------------------------ */
+  if (sincronizarPessoas()) salvar();
   preencherIcones(document);
   verificarReloadPersistencia();
   render();
