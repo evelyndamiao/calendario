@@ -573,6 +573,27 @@ textarea.input { resize: vertical; min-height: 80px; }
 @media (max-width: 980px) { .pes-meses { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpis.kpis-4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .pes-meses { grid-template-columns: 1fr; } }
 
+/* ===================== Vínculo CLT / PJ ===================== */
+.vb { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: .4px; line-height: 1; padding: 3px 6px; border-radius: 6px; vertical-align: 1px; }
+.vb-clt { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.vb-pj { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.vb-nd { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+.vb-alerta { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+.pes-alerta { display: block; font-style: normal; color: #b91c1c; font-weight: 700; margin-top: 2px; }
+.aviso-vinc { display: flex; gap: 10px; align-items: flex-start; border-radius: 12px; padding: 10px 12px; font-size: 13.5px; margin-bottom: 10px; }
+.aviso-vinc b { flex: none; font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 6px; color: #fff; }
+.vinc-clt { background: #f0fdf4; color: #14532d; } .vinc-clt b { background: #16a34a; }
+.vinc-pj { background: #fffbeb; color: #78350f; } .vinc-pj b { background: #d97706; }
+.vinc-nd { background: #f3f4f6; color: #374151; } .vinc-nd b { background: #9ca3af; }
+.vinc-alerta { background: #fef2f2; color: #7f1d1d; } .vinc-alerta b { background: #dc2626; }
+.pes-seg { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.pes-seg button { border: 1px solid var(--linha); background: #fff; border-radius: 999px; padding: 6px 12px; font-weight: 700; font-size: 13px; color: var(--texto-2); cursor: pointer; }
+.pes-seg button em { font-style: normal; font-weight: 800; color: var(--texto-3); margin-left: 2px; }
+.pes-seg button.ativo { background: var(--rosa); border-color: var(--rosa); color: #fff; }
+.pes-seg button.ativo em { color: #ffe3f1; }
+.pes-ev .vb { font-size: 9.5px; padding: 2px 4px; margin-left: 2px; }
+.chip .vb { font-size: 9px; padding: 1px 4px; vertical-align: 1px; }
+
 </style>
 </head>
 <body>
@@ -645,7 +666,7 @@ textarea.input { resize: vertical; min-height: 80px; }
      interno      -> evento interno do sistema (teste)
    ========================================================================= */
 
-window.CONECTA_SEED_VERSION = 3;
+window.CONECTA_SEED_VERSION = 4;
 
 window.CONECTA_CATEGORIAS = {
   feriado:       { nome: "Feriado / ponto facultativo", cor: "#64748b", fundo: "#eef1f5" },
@@ -671,6 +692,10 @@ window.CONECTA_PUBLICOS = [
   "RH",
   "Endomarketing",
   "Administrativo",
+  "Financeiro",
+  "Pós-venda",
+  "Suprimentos",
+  "Pet",
   "Mulheres",
   "Homens",
   "Mães",
@@ -1304,9 +1329,45 @@ window.CONECTA_SEED = [
   }
 ];
 
-/* Pessoas: planilha "Controle de Vendedores — Time DREAM" (importada em 17/11/2026).
+/* Pessoas — planilha "Controle de Vendedores — Time DREAM": aba PJ (vendedores, 17/11/2026) e aba CLT (18/11/2026).
    Por privacidade, só dia e mês do nascimento são guardados. */
 window.CONECTA_COLABORADORES_SEED = [
+ {
+  "id": "pes-vend-54",
+  "nome": "Adriano da Silva Tiburcio",
+  "area": "Comercial / Vendas — gestão dos times",
+  "gestor": "",
+  "aniversario": "04-19",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-01",
+  "nome": "Alice da Conceição Cazumba",
+  "area": "Pet",
+  "gestor": "",
+  "aniversario": "07-27",
+  "admissao": "2026-05-01",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Tosador(a)",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-02",
+  "nome": "Andre Luciano Mello de Oliveira",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "03-04",
+  "admissao": "2025-08-01",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Líder de Logística",
+  "alerta": ""
+ },
  {
   "id": "pes-vend-01",
   "nome": "Andressa Luchini",
@@ -1314,232 +1375,10 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Moises Henrique Wegener",
   "aniversario": "07-09",
   "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-02",
-  "nome": "Davi Miguel Domiciano",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "06-26",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-03",
-  "nome": "Eduardo Pallar",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "07-13",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-04",
-  "nome": "Filipe Oliveira Schiling",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "03-17",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-05",
-  "nome": "Guilherme Pugas Dias",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "06-18",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-06",
-  "nome": "Isaque Jean de Souza",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "01-16",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-07",
-  "nome": "Jonas William Prochnow",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "10-30",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-08",
-  "nome": "Larissa Tamiris dos Santos",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "04-09",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-09",
-  "nome": "Leonardo dos Santos",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "02-27",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-10",
-  "nome": "Lucas Jose Machado",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "09-12",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-11",
-  "nome": "Moises Henrique Wegener",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Adriano da Silva Tiburcio",
-  "aniversario": "11-16",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-12",
-  "nome": "Nereu Meurer",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "08-12",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-13",
-  "nome": "Ruan Petterson Correa",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "03-10",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-14",
-  "nome": "Tuanne da Silva Igreja",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "11-30",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-15",
-  "nome": "Valtemir Kalfels",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "05-31",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-16",
-  "nome": "Valter Mariano dos Santos Junior",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "11-11",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-17",
-  "nome": "Yuri de Souza Sott",
-  "area": "Comercial / Vendas — Time DREAM",
-  "gestor": "Moises Henrique Wegener",
-  "aniversario": "01-12",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-18",
-  "nome": "Camila Lopes Rocha",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "05-02",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-19",
-  "nome": "Carlos Eduardo de Oliveira",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "04-19",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-20",
-  "nome": "Cicero Rhuan de Souza Pereira",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "08-30",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-21",
-  "nome": "David Suarez Garcia",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "02-14",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-22",
-  "nome": "Gabriel Moreli Machado Oliveira",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Adriano da Silva Tiburcio",
-  "aniversario": "06-19",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-23",
-  "nome": "Ivonete Signorin dos Santos",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "11-18",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-24",
-  "nome": "Jaciara Garcia",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "11-19",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-25",
-  "nome": "Maique Eduardo Parolim",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "04-28",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-26",
-  "nome": "Ricardo Mota Ferrazza",
-  "area": "Comercial / Vendas — Time ELITE",
-  "gestor": "Gabriel Moreli Machado Oliveira",
-  "aniversario": "11-14",
-  "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-27",
@@ -1548,151 +1387,10 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Giovane Samuel Vaz Franco de Oliveira",
   "aniversario": "01-21",
   "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-28",
-  "nome": "Ester Pereira da Silva",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "08-17",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-29",
-  "nome": "Fernando Franca",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "01-30",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-30",
-  "nome": "Gabriel dos Santos Roza",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "04-06",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-31",
-  "nome": "Giovane Samuel Vaz Franco de Oliveira",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Adriano da Silva Tiburcio",
-  "aniversario": "01-08",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-32",
-  "nome": "Simone Castelen",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "01-23",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-33",
-  "nome": "Susamara de Souza Ramos Machado",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "04-16",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-34",
-  "nome": "Viviane de Souza Antonio",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "08-11",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-35",
-  "nome": "William Silva Felisberto",
-  "area": "Comercial / Vendas — Time GERAÇÃO",
-  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
-  "aniversario": "05-23",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-36",
-  "nome": "Carlos Alberto Zap",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "02-04",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-37",
-  "nome": "Eduardo de Mattos Bau",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Adriano da Silva Tiburcio",
-  "aniversario": "10-26",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-38",
-  "nome": "Fernanda de Mattos Bau Duarte",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "03-31",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-39",
-  "nome": "Gabryel Marcondes",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "11-19",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-40",
-  "nome": "Ivaldo Manoel dos Santos Gomes",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "04-04",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-41",
-  "nome": "Juliana da Cunha Brunken",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "09-29",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-42",
-  "nome": "Sara Caroline Klamann Jucoski",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "08-21",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-43",
-  "nome": "Tiago de Vargas Alberti",
-  "area": "Comercial / Vendas — Time PERFORMANCE",
-  "gestor": "Eduardo de Mattos Bau",
-  "aniversario": "10-14",
-  "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-44",
@@ -1701,7 +1399,82 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "09-13",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-03",
+  "nome": "Breno da Silva Leal",
+  "area": "Engenharia",
+  "gestor": "",
+  "aniversario": "03-11",
+  "admissao": "2026-11-13",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Engenharia",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-18",
+  "nome": "Camila Lopes Rocha",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "05-02",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-36",
+  "nome": "Carlos Alberto Zap",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "02-04",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-19",
+  "nome": "Carlos Eduardo de Oliveira",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "04-19",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-04",
+  "nome": "Cherli Gudas Marques Ferreira",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "09-07",
+  "admissao": "2025-10-06",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-20",
+  "nome": "Cicero Rhuan de Souza Pereira",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "08-30",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-45",
@@ -1710,7 +1483,226 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "08-28",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-05",
+  "nome": "Daniela Santos Estevão",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "08-14",
+  "admissao": "2025-06-17",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-06",
+  "nome": "Danieli Morvan Fauth",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "05-25",
+  "admissao": "2026-11-16",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-02",
+  "nome": "Davi Miguel Domiciano",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "06-26",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-21",
+  "nome": "David Suarez Garcia",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "02-14",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-37",
+  "nome": "Eduardo de Mattos Bau",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Adriano da Silva Tiburcio",
+  "aniversario": "10-26",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-03",
+  "nome": "Eduardo Pallar",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "07-13",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-07",
+  "nome": "Enderson Rodrigo Pereira",
+  "area": "Técnicos e eletricistas",
+  "gestor": "",
+  "aniversario": "03-22",
+  "admissao": "2026-03-03",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Instalador de Sistemas Fotovoltaicos",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-08",
+  "nome": "Estefany Santana Soares",
+  "area": "Pós-venda",
+  "gestor": "",
+  "aniversario": "12-04",
+  "admissao": "2026-04-13",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Assistente de Customer Success",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-28",
+  "nome": "Ester Pereira da Silva",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "08-17",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-09",
+  "nome": "Evelyn Christine Oliveira Damiao",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "02-19",
+  "admissao": "2026-11-03",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Treinamentos",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-38",
+  "nome": "Fernanda de Mattos Bau Duarte",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "03-31",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-29",
+  "nome": "Fernando Franca",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "01-30",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-10",
+  "nome": "Filipe Gonçalves Corrêa",
+  "area": "Comercial / Vendas",
+  "gestor": "",
+  "aniversario": "11-27",
+  "admissao": "2026-10-16",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Vendedor(a) Interno(a)",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-04",
+  "nome": "Filipe Oliveira Schiling",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "03-17",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-30",
+  "nome": "Gabriel dos Santos Roza",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "04-06",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-22",
+  "nome": "Gabriel Moreli Machado Oliveira",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Adriano da Silva Tiburcio",
+  "aniversario": "06-19",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-11",
+  "nome": "Gabriela Balansin",
+  "area": "Pet",
+  "gestor": "",
+  "aniversario": "10-17",
+  "admissao": "2026-05-01",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Banhista",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-39",
+  "nome": "Gabryel Marcondes",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "11-19",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-46",
@@ -1719,7 +1711,10 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "02-23",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-47",
@@ -1728,7 +1723,22 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "03-13",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-31",
+  "nome": "Giovane Samuel Vaz Franco de Oliveira",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Adriano da Silva Tiburcio",
+  "aniversario": "01-08",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-48",
@@ -1737,7 +1747,10 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "07-31",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-49",
@@ -1746,7 +1759,142 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "11-18",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-12",
+  "nome": "Guilherme Pan",
+  "area": "Pós-venda",
+  "gestor": "",
+  "aniversario": "10-17",
+  "admissao": "2025-06-23",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de O&M",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-05",
+  "nome": "Guilherme Pugas Dias",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "06-18",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-13",
+  "nome": "Henrique Xavier Klappoth",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "12-25",
+  "admissao": "2026-07-17",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Desenvolvimento de Sistemas",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-14",
+  "nome": "Herique Anderson Caetano da Cunha",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "01-11",
+  "admissao": "2026-06-22",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Logística",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-06",
+  "nome": "Isaque Jean de Souza",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "01-16",
+  "admissao": "2026-09-22",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Logística",
+  "alerta": "Também consta na lista de PJs (Time DREAM, gestor Moises Henrique Wegener). Confirme o vínculo com o RH."
+ },
+ {
+  "id": "pes-vend-40",
+  "nome": "Ivaldo Manoel dos Santos Gomes",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "04-04",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-23",
+  "nome": "Ivonete Signorin dos Santos",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "11-18",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-24",
+  "nome": "Jaciara Garcia",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "11-19",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-16",
+  "nome": "Janaina de Souza Soares",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "07-27",
+  "admissao": "2026-01-21",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-17",
+  "nome": "Jeferson de Souza da Conceição",
+  "area": "Técnicos e eletricistas",
+  "gestor": "",
+  "aniversario": "04-08",
+  "admissao": "2026-06-23",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Instalador de Sistemas Fotovoltaicos",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-18",
+  "nome": "Jesse de Sousa Melo",
+  "area": "Engenharia",
+  "gestor": "",
+  "aniversario": "03-27",
+  "admissao": "2026-04-13",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Engenharia",
+  "alerta": ""
  },
  {
   "id": "pes-vend-50",
@@ -1755,7 +1903,130 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Adriano da Silva Tiburcio",
   "aniversario": "07-08",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-07",
+  "nome": "Jonas William Prochnow",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "10-30",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-41",
+  "nome": "Juliana da Cunha Brunken",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "09-29",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-19",
+  "nome": "Kettlin Gumz da Silva",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "03-29",
+  "admissao": "2025-07-09",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Aux. Serviços Gerais",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-08",
+  "nome": "Larissa Tamiris dos Santos",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "04-09",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-09",
+  "nome": "Leonardo dos Santos",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "02-27",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-20",
+  "nome": "Leticia Rodrigues de Oliveira",
+  "area": "Engenharia",
+  "gestor": "",
+  "aniversario": "11-23",
+  "admissao": "2025-04-17",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Assistente de Engenharia",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-21",
+  "nome": "Lucas Alves",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "09-22",
+  "admissao": "2026-04-13",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista Contábil",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-10",
+  "nome": "Lucas Jose Machado",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "09-12",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-22",
+  "nome": "Luiz Nazareno Ferreira da Silva",
+  "area": "Engenharia",
+  "gestor": "",
+  "aniversario": "03-19",
+  "admissao": "2025-11-24",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Engenharia",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-25",
+  "nome": "Maique Eduardo Parolim",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "04-28",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-51",
@@ -1764,7 +2035,46 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "02-12",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-23",
+  "nome": "Maria Aparecida dos Santos",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "10-13",
+  "admissao": "2026-09-16",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Aux. Serviços Gerais",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-24",
+  "nome": "Maria de Jesus Batalha dos Santos",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "07-06",
+  "admissao": "2026-07-13",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Aux. Serviços Gerais",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-25",
+  "nome": "Maxiel Andraski",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "02-10",
+  "admissao": "2026-06-29",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Logística",
+  "alerta": ""
  },
  {
   "id": "pes-vend-52",
@@ -1773,25 +2083,70 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "Jhonathan Machado Silveira",
   "aniversario": "07-24",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
-  "id": "pes-vend-53",
-  "nome": "Ricardo Fernandes",
-  "area": "Comercial / Vendas — Time SINERGIA",
-  "gestor": "Jhonathan Machado Silveira",
-  "aniversario": "08-15",
-  "admissao": "",
-  "ativo": true
- },
- {
-  "id": "pes-vend-54",
-  "nome": "Adriano da Silva Tiburcio",
-  "area": "Comercial / Vendas — gestão dos times",
+  "id": "pes-clt-26",
+  "nome": "Maycon William Pereira Tavares",
+  "area": "Logística e motoristas",
   "gestor": "",
-  "aniversario": "04-19",
+  "aniversario": "03-25",
+  "admissao": "2025-11-25",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Logística",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-27",
+  "nome": "Mayra Silvyane Lopes da Silva Conceição Rossi",
+  "area": "Administrativo",
+  "gestor": "",
+  "aniversario": "05-09",
+  "admissao": "2026-05-18",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Treinamentos",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-28",
+  "nome": "Mohana Augusta de Oliveira Montenegro",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "04-26",
+  "admissao": "2026-10-14",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-11",
+  "nome": "Moises Henrique Wegener",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Adriano da Silva Tiburcio",
+  "aniversario": "11-16",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-12",
+  "nome": "Nereu Meurer",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "08-12",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  },
  {
   "id": "pes-vend-55",
@@ -1800,7 +2155,298 @@ window.CONECTA_COLABORADORES_SEED = [
   "gestor": "",
   "aniversario": "03-05",
   "admissao": "",
-  "ativo": true
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-29",
+  "nome": "Paulo Alexandre Santos Diniz",
+  "area": "Pós-venda",
+  "gestor": "",
+  "aniversario": "08-15",
+  "admissao": "2026-10-01",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Suporte",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-31",
+  "nome": "Rafael Pereira",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "02-24",
+  "admissao": "2026-11-03",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Motorista",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-30",
+  "nome": "Rafaela Pereira de Souza",
+  "area": "Pet",
+  "gestor": "",
+  "aniversario": "01-10",
+  "admissao": "2026-04-09",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Tosador(a)",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-32",
+  "nome": "Rayane Priscila Cipriano",
+  "area": "Suprimentos",
+  "gestor": "",
+  "aniversario": "08-01",
+  "admissao": "2025-03-17",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Líder de Suprimentos",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-53",
+  "nome": "Ricardo Fernandes",
+  "area": "Comercial / Vendas — Time SINERGIA",
+  "gestor": "Jhonathan Machado Silveira",
+  "aniversario": "08-15",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-26",
+  "nome": "Ricardo Mota Ferrazza",
+  "area": "Comercial / Vendas — Time ELITE",
+  "gestor": "Gabriel Moreli Machado Oliveira",
+  "aniversario": "11-14",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-13",
+  "nome": "Ruan Petterson Correa",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "03-10",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-33",
+  "nome": "Salete Cardoso Domingos Brito",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "09-01",
+  "admissao": "2025-07-07",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar Financeiro",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-34",
+  "nome": "Samuel Correa",
+  "area": "Logística e motoristas",
+  "gestor": "",
+  "aniversario": "12-15",
+  "admissao": "2026-09-22",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Motorista",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-42",
+  "nome": "Sara Caroline Klamann Jucoski",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "08-21",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-32",
+  "nome": "Simone Castelen",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "01-23",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-33",
+  "nome": "Susamara de Souza Ramos Machado",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "04-16",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-35",
+  "nome": "Tainara dos Santos Machado",
+  "area": "RH",
+  "gestor": "",
+  "aniversario": "10-31",
+  "admissao": "2025-12-02",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Departamento Pessoal",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-36",
+  "nome": "Thiago Gabriel de Negredo Mendonça",
+  "area": "Engenharia",
+  "gestor": "",
+  "aniversario": "09-04",
+  "admissao": "2025-10-27",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Engenharia",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-43",
+  "nome": "Tiago de Vargas Alberti",
+  "area": "Comercial / Vendas — Time PERFORMANCE",
+  "gestor": "Eduardo de Mattos Bau",
+  "aniversario": "10-14",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-37",
+  "nome": "Tiago Gomes Lima",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "12-04",
+  "admissao": "2026-08-03",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista Contábil",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-14",
+  "nome": "Tuanne da Silva Igreja",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "11-30",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-15",
+  "nome": "Valtemir Kalfels",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "05-31",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-16",
+  "nome": "Valter Mariano dos Santos Junior",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "11-11",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-38",
+  "nome": "Vilena Mathias",
+  "area": "Pet",
+  "gestor": "",
+  "aniversario": "08-23",
+  "admissao": "2026-05-01",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Motorista",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-34",
+  "nome": "Viviane de Souza Antonio",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "08-11",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-35",
+  "nome": "William Silva Felisberto",
+  "area": "Comercial / Vendas — Time GERAÇÃO",
+  "gestor": "Giovane Samuel Vaz Franco de Oliveira",
+  "aniversario": "05-23",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
+ },
+ {
+  "id": "pes-clt-39",
+  "nome": "William Tamanini",
+  "area": "Pós-venda",
+  "gestor": "",
+  "aniversario": "02-18",
+  "admissao": "2026-09-17",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista de Pós-venda",
+  "alerta": ""
+ },
+ {
+  "id": "pes-vend-17",
+  "nome": "Yuri de Souza Sott",
+  "area": "Comercial / Vendas — Time DREAM",
+  "gestor": "Moises Henrique Wegener",
+  "aniversario": "01-12",
+  "admissao": "",
+  "ativo": true,
+  "vinculo": "PJ",
+  "cargo": "",
+  "alerta": ""
  }
 ];
 
@@ -1992,11 +2638,15 @@ window.CONECTA_COLABORADORES_SEED = [
     var ids = {}; d.eventos.forEach(function (e) { ids[e.id] = true; });
     SEED.forEach(function (e) { if ((e.desdeVersao || 1) > v && !ids[e.id]) d.eventos.push(eventoBase(e)); });
     // v3: pessoas da planilha "Controle de Vendedores — Time DREAM": atualiza por nome e inclui quem falta
-    if (v < 3) {
+    if (v < 4) {
+      // v3: vendedores (PJ) · v4: + colaboradores CLT e vínculo de cada pessoa
       (window.CONECTA_COLABORADORES_SEED || []).forEach(function (p) {
         var ex = d.colaboradores.filter(function (x) { return norm(x.nome) === norm(p.nome); })[0];
-        if (ex) { ex.aniversario = p.aniversario; ex.area = p.area; ex.gestor = p.gestor || ex.gestor || ""; }
-        else d.colaboradores.push(colabBase(p));
+        if (ex) {
+          ex.aniversario = p.aniversario; ex.area = p.area; ex.gestor = p.gestor || "";
+          ex.vinculo = p.vinculo || ex.vinculo || ""; ex.cargo = p.cargo || ex.cargo || ""; ex.alerta = p.alerta || "";
+          if (p.admissao) ex.admissao = p.admissao;
+        } else d.colaboradores.push(colabBase(p));
       });
     }
     d.versao = alvo;
@@ -2659,7 +3309,7 @@ window.CONECTA_COLABORADORES_SEED = [
     return html;
   }
   function chip(e) {
-    return '<button class="chip ' + e.status + (e.categoria === "teste" ? " chip-teste" : "") + '" style="--chip-cor:' + corCat(e.categoria) + ";--chip-fundo:" + fundoCat(e.categoria) + '" data-evento="' + esc(e.id) + '" title="' + esc(e.titulo + " — " + nomeCat(e.categoria) + " · prioridade " + PRIO[e.prioridade]) + '">' + esc(e.titulo) + "</button>";
+    return '<button class="chip ' + e.status + (e.categoria === "teste" ? " chip-teste" : "") + '" style="--chip-cor:' + corCat(e.categoria) + ";--chip-fundo:" + fundoCat(e.categoria) + '" data-evento="' + esc(e.id) + '" title="' + esc(e.titulo + " — " + nomeCat(e.categoria) + " · prioridade " + PRIO[e.prioridade]) + '">' + (e.vinculo ? seloVinculo(e.vinculo) + " " + esc(e.titulo.replace(/ \((CLT|PJ)\)/, "")) : esc(e.titulo)) + "</button>";
   }
 
   /* ------------------------------------------------------------------ *
@@ -3033,6 +3683,7 @@ window.CONECTA_COLABORADORES_SEED = [
       (ev.confirmada === false ? '<span class="tag tag-aviso">data a confirmar</span>' : "") + (ev.demo ? '<span class="tag tag-demo">demonstração</span>' : "") + "</div>" +
       '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
       '<div class="modal-corpo">' + avisoFds +
+      avisoVinculo(ev) +
       (ev.pessoaId ? '<div class="aviso-pessoa">' + ic("users") + ' Data gerada pelo cadastro de Pessoas. Nome e data são alterados lá; status, prioridade, sugestão e observações podem ser editados aqui. <button class="btn btn-p btn-texto" data-colab-editar="' + esc(ev.pessoaId) + '">Editar cadastro</button></div>' : "") +
       (ev.confirmada === false ? '<div class="aviso-conf">⚠ Data ou período ainda não confirmado oficialmente para ' + d.getFullYear() + ". Verifique a fonte antes de comunicar.</div>" : "") +
       '<div class="det-grade">' +
@@ -3203,7 +3854,8 @@ window.CONECTA_COLABORADORES_SEED = [
   function colabBase(c) {
     return {
       id: c.id || uid("pes"), nome: String(c.nome || "").trim(), area: String(c.area || "").trim(), gestor: String(c.gestor || "").trim(),
-      aniversario: c.aniversario || "", admissao: c.admissao || "", ativo: c.ativo !== false
+      aniversario: c.aniversario || "", admissao: c.admissao || "", ativo: c.ativo !== false,
+      vinculo: c.vinculo === "CLT" || c.vinculo === "PJ" ? c.vinculo : "", cargo: String(c.cargo || "").trim(), alerta: String(c.alerta || "").trim()
     };
   }
   // "MM-DD" válido?
@@ -3243,19 +3895,21 @@ window.CONECTA_COLABORADORES_SEED = [
       if (!c.ativo || !c.nome) return;
       var rotArea = c.area ? " (" + c.area + ")" : "";
       var pub = publicoDaArea(c.area).slice();
-      if (nomesGestores[norm(c.nome)] && pub.indexOf("Liderança") === -1) pub.push("Liderança");
+      if ((nomesGestores[norm(c.nome)] || /^l[ií]der/i.test(c.cargo)) && pub.indexOf("Liderança") === -1) pub.push("Liderança");
+      var sufV = c.vinculo ? " (" + c.vinculo + ")" : "";
+      var infoV = c.vinculo === "CLT" ? " Vínculo: CLT" + (c.cargo ? " — " + c.cargo : "") + "." : c.vinculo === "PJ" ? " Vínculo: PJ (prestador de serviço)." : "";
       var quemAssina = c.gestor ? "pelo gestor " + c.gestor : "pela liderança";
-      var comum = { categoria: "pessoas", tipo: "interno", publico: pub, pessoaId: c.id, fonte: "Cadastro interno de colaboradores (aba Pessoas)", fonteUrl: "", confirmada: true };
+      var comum = { categoria: "pessoas", tipo: "interno", publico: pub, pessoaId: c.id, vinculo: c.vinculo, fonte: "Cadastro interno de colaboradores (aba Pessoas)", fonteUrl: "", confirmada: true };
       janelas.forEach(function (jn) {
         var ano = jn.ano;
         if (cfg.aniversarios && mmddValido(c.aniversario)) {
           var dAniv = dataNoAno(c.aniversario, ano);
           if (dAniv >= INICIO_COBERTURA) lista.push(Object.assign({}, comum, {
-            id: "pessoa-aniv-" + c.id + jn.sufixo, pessoaTipo: "aniversario", titulo: "Aniversário — " + c.nome,
+            id: "pessoa-aniv-" + c.id + jn.sufixo, pessoaTipo: "aniversario", titulo: "Aniversário — " + c.nome + sufV,
             data: dAniv, prioridade: "baixa", antecedencia: "7 dias",
             contexto: "Aniversário de " + c.nome + rotArea + (c.gestor ? ", time do gestor " + c.gestor : "") +
               (c.aniversario === "02-29" && dAniv.slice(5) === "02-28" ? ". Nascido(a) em 29/02: em " + ano + " a data foi ajustada para 28/02." : ".") +
-              " Gerado automaticamente a partir do cadastro de Pessoas.",
+              infoV + " Gerado automaticamente a partir do cadastro de Pessoas.",
             sugestao: "Mensagem ou cartão assinado " + quemAssina + " e parabéns no canal interno (somente se " + primeiroNome(c.nome) + " autorizar a divulgação). Incluir na comemoração mensal dos aniversariantes."
           }));
         }
@@ -3265,9 +3919,9 @@ window.CONECTA_COLABORADORES_SEED = [
             var marco = anos === 1 || anos % 5 === 0;
             lista.push(Object.assign({}, comum, {
               id: "pessoa-casa-" + c.id + jn.sufixo, pessoaTipo: "tempo-casa",
-              titulo: c.nome + " — " + anos + (anos > 1 ? " anos" : " ano") + " de Catarinna’s",
+              titulo: c.nome + sufV + " — " + anos + (anos > 1 ? " anos" : " ano") + " de Catarinna’s",
               data: dCasa, prioridade: marco ? "alta" : "baixa", antecedencia: marco ? "30 dias" : "7 dias",
-              contexto: "Aniversário de empresa de " + c.nome + rotArea + ": admissão em " + fmtData(c.admissao) + ". " + (marco ? "Marco de carreira (" + anos + (anos > 1 ? " anos" : " ano") + ")." : "") + " Gerado automaticamente a partir do cadastro de Pessoas.",
+              contexto: "Aniversário de empresa de " + c.nome + rotArea + ": admissão em " + fmtData(c.admissao) + ". " + (marco ? "Marco de carreira (" + anos + (anos > 1 ? " anos" : " ano") + ")." : "") + infoV + " Gerado automaticamente a partir do cadastro de Pessoas.",
               sugestao: marco ? "Reconhecimento especial: certificado ou lembrança comemorativa, mensagem da diretoria e menção na reunião geral, com a história de " + primeiroNome(c.nome) + " na empresa." :
                 "Mensagem de agradecimento " + (c.gestor ? "do gestor " + c.gestor : "do gestor direto") + " e menção no canal interno."
             }));
@@ -3276,9 +3930,9 @@ window.CONECTA_COLABORADORES_SEED = [
       });
       if (cfg.boasVindas && /^\d{4}-\d{2}-\d{2}$/.test(c.admissao) && c.admissao >= INICIO_COBERTURA) {
         lista.push(Object.assign({}, comum, {
-          id: "pessoa-integra-" + c.id, pessoaTipo: "boas-vindas", titulo: "Boas-vindas — " + c.nome + " (integração)",
+          id: "pessoa-integra-" + c.id, pessoaTipo: "boas-vindas", titulo: "Boas-vindas — " + c.nome + sufV + " · integração",
           data: c.admissao, prioridade: "media", antecedencia: "15 dias",
-          contexto: "Admissão de " + c.nome + rotArea + " em " + fmtData(c.admissao) + ". Gerado automaticamente a partir do cadastro de Pessoas.",
+          contexto: "Admissão de " + c.nome + rotArea + " em " + fmtData(c.admissao) + "." + infoV + " Gerado automaticamente a partir do cadastro de Pessoas.",
           sugestao: "Kit de boas-vindas, apresentação à equipe, padrinho/madrinha na área, agenda de integração da primeira semana e post de boas-vindas no canal interno."
         }));
       }
@@ -3297,7 +3951,7 @@ window.CONECTA_COLABORADORES_SEED = [
     desejados.forEach(function (d) {
       var ev = porId(d.id);
       if (!ev) { var novo = eventoBase(d); novo.lembretesDesde = hojeISO(); estado.eventos.push(novo); mudou = true; return; }
-      var fixos = ["titulo", "data", "publico", "categoria", "tipo", "contexto", "fonte", "pessoaId", "pessoaTipo", "antecedencia"];
+      var fixos = ["titulo", "data", "publico", "categoria", "tipo", "contexto", "fonte", "pessoaId", "pessoaTipo", "antecedencia", "vinculo"];
       if (ev.data !== d.data) limparLembretes(ev.id);
       fixos.forEach(function (k) {
         if (JSON.stringify(ev[k]) !== JSON.stringify(d[k])) { ev[k] = clonar(d[k]); mudou = true; }
@@ -3353,6 +4007,8 @@ window.CONECTA_COLABORADORES_SEED = [
       if (i === 0 && /nome/i.test(cols[0])) return; // cabeçalho
       var c = { nome: cols[0], area: cols[1] || "", aniversario: lerDataBR(cols[2], false), admissao: lerDataBR(cols[3], true) };
       if (cols[4]) c.gestor = cols[4];
+      if (cols[5]) { var vv = cols[5].toUpperCase().replace(/[^A-Z]/g, ""); if (vv === "CLT" || vv === "PJ") c.vinculo = vv; }
+      if (cols[6]) c.cargo = cols[6];
       if (c.aniversario === null || c.admissao === null) { erros.push("Linha " + (i + 1) + " (" + (cols[0] || "?") + "): data em formato não reconhecido"); return; }
       // aniversário com ano completo (dd/mm/aaaa) é aceito, mas só dia e mês são guardados
       var e = validarColab(colabBase(c));
@@ -3368,9 +4024,9 @@ window.CONECTA_COLABORADORES_SEED = [
     return { incluidos: novos.length - atualizados, atualizados: atualizados, erros: erros };
   }
   function exportarCSV() {
-    var linhas = ["Nome;Área;Aniversário (dd/mm);Admissão (dd/mm/aaaa);Gestor;Ativo"];
+    var linhas = ["Nome;Área;Aniversário (dd/mm);Admissão (dd/mm/aaaa);Gestor;Vínculo;Cargo;Ativo"];
     estado.colaboradores.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome, "pt-BR"); }).forEach(function (c) {
-      linhas.push([c.nome, c.area, mmddValido(c.aniversario) ? fmtMMDD(c.aniversario) : "", c.admissao ? fmtData(c.admissao) : "", c.gestor, c.ativo ? "sim" : "não"].map(function (x) { return String(x).replace(/;/g, ","); }).join(";"));
+      linhas.push([c.nome, c.area, mmddValido(c.aniversario) ? fmtMMDD(c.aniversario) : "", c.admissao ? fmtData(c.admissao) : "", c.gestor, c.vinculo, c.cargo, c.ativo ? "sim" : "não"].map(function (x) { return String(x).replace(/;/g, ","); }).join(";"));
     });
     baixar("catarinnas-conecta-colaboradores.csv", "﻿" + linhas.join("\r\n"), "text/csv;charset=utf-8");
   }
@@ -3380,9 +4036,23 @@ window.CONECTA_COLABORADORES_SEED = [
     return ordenados(estado.eventos.filter(function (e) { return e.pessoaId && e.data.slice(0, 7) === pref; }));
   }
   function iconePessoa(t) { return t === "aniversario" ? "🎂" : t === "tempo-casa" ? "🏅" : "👋"; }
+  function seloVinculo(v) {
+    return v ? '<span class="vb vb-' + v.toLowerCase() + '" title="' + (v === "PJ" ? "Prestador(a) de serviço — PJ" : "Colaborador(a) registrado(a) — CLT") + '">' + v + "</span>" : "";
+  }
+  function avisoVinculo(ev) {
+    if (!ev.pessoaId) return "";
+    var c = colabPorId(ev.pessoaId);
+    if (!c) return "";
+    var h = "";
+    if (c.vinculo === "CLT") h = '<div class="aviso-vinc vinc-clt"><b>CLT</b><span>Colaborador(a) registrado(a)' + (c.cargo ? " · " + esc(c.cargo) : "") + (c.admissao ? " · registro em " + fmtData(c.admissao) : "") + ".</span></div>";
+    else if (c.vinculo === "PJ") h = '<div class="aviso-vinc vinc-pj"><b>PJ</b><span>Prestador(a) de serviço' + (c.area ? " · " + esc(c.area) : "") + ". Antes de incluir em brindes ou benefícios exclusivos de colaboradores CLT, alinhe com o RH.</span></div>";
+    else h = '<div class="aviso-vinc vinc-nd"><b>?</b><span>Vínculo (CLT ou PJ) não informado no cadastro.</span></div>';
+    if (c.alerta) h += '<div class="aviso-vinc vinc-alerta"><b>!</b><span>' + esc(c.alerta) + "</span></div>";
+    return h;
+  }
   function linhaPessoaEv(e) {
     var d = pd(e.data);
-    return '<button class="pes-ev" data-evento="' + esc(e.id) + '"><span class="pes-dia">' + pad(d.getDate()) + "</span><span>" + iconePessoa(e.pessoaTipo) + " " + esc(e.titulo.replace(/^Aniversário — /, "")) + "</span>" +
+    return '<button class="pes-ev" data-evento="' + esc(e.id) + '"><span class="pes-dia">' + pad(d.getDate()) + "</span><span>" + iconePessoa(e.pessoaTipo) + " " + esc(e.titulo.replace(/^Aniversário — /, "").replace(/ \((CLT|PJ)\)/, "")) + " " + seloVinculo(e.vinculo) + "</span>" +
       (e.prioridade === "alta" ? '<span class="tag tag-alta" style="margin-left:auto">marco</span>' : "") + "</button>";
   }
 
@@ -3396,6 +4066,12 @@ window.CONECTA_COLABORADORES_SEED = [
     var nBoas = evs.filter(function (e) { return e.pessoaTipo === "boas-vindas"; }).length;
     var cfg = estado.pessoasConfig;
     var q = ui.pesBusca || "";
+    var nCLT = cs.filter(function (c) { return c.vinculo === "CLT"; }).length, nPJ = cs.filter(function (c) { return c.vinculo === "PJ"; }).length, nND = cs.length - nCLT - nPJ;
+    var fv = ui.pesVinc || "";
+    var filtroV = '<div class="pes-seg" role="group" aria-label="Filtrar por vínculo">' +
+      [["", "Todos", cs.length], ["CLT", "CLT", nCLT], ["PJ", "PJ", nPJ]].concat(nND ? [["nd", "Sem vínculo", nND]] : []).map(function (o) {
+        return '<button data-pes-vinc="' + o[0] + '" class="' + (fv === o[0] ? "ativo" : "") + '" aria-pressed="' + (fv === o[0]) + '">' + o[1] + " <em>" + o[2] + "</em></button>";
+      }).join("") + "</div>";
 
     var html = '<section class="card pes-topo"><div><h1 class="card-titulo" style="font-size:28px">' + ic("users") + "Pessoas</h1>" +
       '<p class="sub" style="margin:0">Cadastre quem faz a Catarinna’s acontecer. Aniversários, tempo de casa e boas-vindas entram sozinhos no calendário de ' + ANO_BASE + ", com lembretes e exportação para o Google Agenda.</p></div>" +
@@ -3404,7 +4080,7 @@ window.CONECTA_COLABORADORES_SEED = [
       (cs.length ? '<button class="btn" data-acao="exportar-colab">' + ic("download") + " Exportar CSV</button>" : "") + "</div></section>";
 
     html += '<section class="kpis kpis-4">' +
-      kpi("Pessoas ativas", ativos, cs.length - ativos ? (cs.length - ativos) + " inativas" : "no cadastro", "users", CAT.pessoas.cor, "") +
+      kpi("Pessoas ativas", ativos, nCLT + " CLT · " + nPJ + " PJ" + (nND ? " · " + nND + " sem vínculo" : "") + (cs.length - ativos ? " · " + (cs.length - ativos) + " inativas" : ""), "users", CAT.pessoas.cor, "") +
       kpi("Aniversários", nAniv, "no calendário de " + ANO_BASE, "heart", "#e51786", "") +
       kpi("Tempo de casa", nCasa, nMarco + " marcos (1, 5, 10, 15… anos)", "star", "#ffcf00", "") +
       kpi("Boas-vindas", nBoas, "admissões em " + ANO_BASE, "sun", CAT.colaboradores.cor, "") + "</section>";
@@ -3429,7 +4105,7 @@ window.CONECTA_COLABORADORES_SEED = [
     html += "</section></div>";
 
     // Lista + configurações
-    html += '<div class="painel-col"><section class="card"><h2 class="card-titulo">' + ic("users") + "Cadastro <span class=\"pes-qtd\">" + cs.length + "</span></h2>" +
+    html += '<div class="painel-col"><section class="card"><h2 class="card-titulo">' + ic("users") + "Cadastro <span class=\"pes-qtd\">" + cs.length + "</span></h2>" + filtroV +
       '<label class="busca" style="margin-bottom:10px">' + ic("search") + '<input id="pesBusca" class="input" type="search" placeholder="Buscar por nome ou área" value="' + esc(q) + '"></label>' +
       '<div class="pes-lista" id="pesLista">' + listaColabHTML(cs, q) + "</div></section>";
 
@@ -3450,15 +4126,18 @@ window.CONECTA_COLABORADORES_SEED = [
     return '<label class="pes-check"><input type="checkbox" data-pcfg="' + k + '"' + (v ? " checked" : "") + "><span><b>" + t + "</b><small>" + d + "</small></span></label>";
   }
   function listaColabHTML(cs, q) {
-    var nq = norm(q).trim();
-    var lista = nq ? cs.filter(function (c) { return norm(c.nome + " " + c.area + " " + c.gestor).indexOf(nq) > -1; }) : cs;
+    var nq = norm(q).trim(), fv = ui.pesVinc || "";
+    var lista = cs.filter(function (c) {
+      if (fv === "nd" ? c.vinculo : fv && c.vinculo !== fv) return false;
+      return !nq || norm(c.nome + " " + c.area + " " + c.gestor + " " + c.cargo + " " + c.vinculo).indexOf(nq) > -1;
+    });
     if (!cs.length) return '<div class="vazio">Ninguém cadastrado ainda.<br><button class="btn btn-p btn-primario" data-acao="novo-colab" style="margin-top:10px">' + ic("plus") + " Adicionar a primeira pessoa</button></div>";
-    if (!lista.length) return '<div class="vazio">Nenhum resultado para a busca.</div>';
+    if (!lista.length) return '<div class="vazio">Nenhum resultado para a busca ou o filtro.</div>';
     return lista.map(function (c) {
       var anos = c.admissao ? ANO_BASE - Number(c.admissao.slice(0, 4)) : null;
       return '<div class="pes-item' + (c.ativo ? "" : " inativo") + '"><span class="pes-av">' + esc(iniciais(c.nome)) + "</span>" +
-        '<div class="pes-info"><b>' + esc(c.nome) + (c.ativo ? "" : ' <span class="tag">inativo</span>') + "</b><small>" + esc(c.area || "Área não informada") + (c.gestor ? " · gestor: " + esc(c.gestor) : "") +
-        " · 🎂 " + fmtMMDD(c.aniversario) + (c.admissao ? " · desde " + fmtData(c.admissao) + (anos >= 1 ? " (" + anos + (anos > 1 ? " anos" : " ano") + " em " + ANO_BASE + ")" : "") : "") + "</small></div>" +
+        '<div class="pes-info"><b>' + esc(c.nome) + " " + (c.vinculo ? seloVinculo(c.vinculo) : '<span class="vb vb-nd" title="Vínculo não informado">?</span>') + (c.alerta ? ' <span class="vb vb-alerta" title="' + esc(c.alerta) + '">!</span>' : "") + (c.ativo ? "" : ' <span class="tag">inativo</span>') + "</b><small>" + esc(c.area || "Área não informada") + (c.cargo ? " · " + esc(c.cargo) : "") + (c.gestor ? " · gestor: " + esc(c.gestor) : "") +
+        " · 🎂 " + fmtMMDD(c.aniversario) + (c.admissao ? " · " + (c.vinculo === "CLT" ? "registro em " : "desde ") + fmtData(c.admissao) + (anos >= 1 ? " (" + anos + (anos > 1 ? " anos" : " ano") + " em " + ANO_BASE + ")" : "") : "") + (c.alerta ? '<em class="pes-alerta">⚠ ' + esc(c.alerta) + "</em>" : "") + "</small></div>" +
         '<button class="btn btn-icone btn-texto" data-colab-editar="' + esc(c.id) + '" title="Editar" aria-label="Editar ' + esc(c.nome) + '">' + ic("edit") + "</button>" +
         '<button class="btn btn-icone btn-texto btn-perigo" data-colab-excluir="' + esc(c.id) + '" title="Excluir" aria-label="Excluir ' + esc(c.nome) + '">' + ic("trash") + "</button></div>";
     }).join("");
@@ -3479,6 +4158,8 @@ window.CONECTA_COLABORADORES_SEED = [
       '<label class="full">Nome *<input class="input" name="nome" required maxlength="100" value="' + esc(c.nome) + '" autofocus></label>' +
       '<label class="full">Área<input class="input" name="area" list="listaAreas" maxlength="60" value="' + esc(c.area) + '" placeholder="Ex.: Comercial / Vendas"><datalist id="listaAreas">' +
       areas.map(function (a) { return '<option value="' + esc(a) + '">'; }).join("") + '</datalist><span class="dica">Escolha da lista para que os filtros por público funcionem.</span></label>' +
+      '<label>Vínculo<select class="input" name="vinculo"><option value="">Não informado</option><option value="CLT"' + (c.vinculo === "CLT" ? " selected" : "") + '>CLT (registrado)</option><option value="PJ"' + (c.vinculo === "PJ" ? " selected" : "") + ">PJ (prestador de serviço)</option></select></label>" +
+      '<label>Cargo<input class="input" name="cargo" maxlength="80" value="' + esc(c.cargo) + '" placeholder="Ex.: Analista Financeiro"></label>' +
       '<label class="full">Gestor(a)<input class="input" name="gestor" maxlength="80" value="' + esc(c.gestor) + '" placeholder="Opcional: quem assina o parabéns"></label>' +
       '<div><div class="form-rot">Aniversário (dia e mês)</div><div class="pes-dm"><select class="input" name="dia">' + opsDia + '</select><select class="input" name="mes">' + opsMes + '</select></div><span class="dica">Não guardamos o ano de nascimento.</span></div>' +
       '<label>Data de admissão<input class="input" type="date" name="admissao" value="' + esc(c.admissao) + '"><span class="dica">Gera o tempo de casa (ou boas-vindas, se for em ' + ANO_BASE + ").</span></label>" +
@@ -3492,7 +4173,7 @@ window.CONECTA_COLABORADORES_SEED = [
       var fd = new FormData(form);
       var dd = fd.get("dia"), mm = fd.get("mes");
       if ((dd && !mm) || (!dd && mm)) { $("#erroColab").textContent = "Informe o dia e o mês do aniversário."; return; }
-      var dados = { nome: (fd.get("nome") || "").trim(), area: (fd.get("area") || "").trim(), gestor: (fd.get("gestor") || "").trim(), aniversario: dd && mm ? pad(Number(mm)) + "-" + pad(Number(dd)) : "", admissao: fd.get("admissao") || "", ativo: !!fd.get("ativo") };
+      var dados = { nome: (fd.get("nome") || "").trim(), area: (fd.get("area") || "").trim(), gestor: (fd.get("gestor") || "").trim(), vinculo: fd.get("vinculo") || "", cargo: (fd.get("cargo") || "").trim(), aniversario: dd && mm ? pad(Number(mm)) + "-" + pad(Number(dd)) : "", admissao: fd.get("admissao") || "", ativo: !!fd.get("ativo") };
       try {
         var salvo = salvarColab(dados, id || null);
         fecharModal(); renderConteudo(); atualizarBadge();
@@ -3506,7 +4187,7 @@ window.CONECTA_COLABORADORES_SEED = [
     var html = '<div class="modal-cab" style="--faixa:' + CAT.pessoas.cor + '"><div class="faixa"></div><h2 id="modalTitulo">Importar lista de pessoas</h2>' +
       '<button class="btn btn-icone btn-texto modal-fechar" data-fechar aria-label="Fechar">' + ic("x") + "</button></div>" +
       '<div class="modal-corpo"><p style="margin-top:0">Copie as colunas da planilha do RH (Excel ou Google Planilhas) e cole abaixo, <b>uma pessoa por linha</b>, nesta ordem:</p>' +
-      '<p><code>Nome ; Área ; Aniversário (dd/mm) ; Admissão (dd/mm/aaaa) ; Gestor (opcional)</code></p>' +
+      '<p><code>Nome ; Área ; Aniversário (dd/mm) ; Admissão (dd/mm/aaaa) ; Gestor ; Vínculo (CLT/PJ) ; Cargo</code> (as três últimas são opcionais)</p>' +
       '<p class="sub" style="margin:0 0 10px">Funciona com colunas separadas por tabulação (colagem direta da planilha), ponto e vírgula ou vírgula. Aniversário ou admissão podem ficar em branco (mas não os dois). Se o aniversário vier com o ano, só dia e mês são guardados. Nomes já cadastrados são atualizados.</p>' +
       '<textarea class="input" id="txtImport" rows="9" placeholder="Ana Souza;Comercial / Vendas;14/03;02/05/2019&#10;Bruno Lima;Técnicos e eletricistas;27/11;10/01/2022"></textarea>' +
       '<label class="menu-arquivo btn btn-p" style="margin-top:10px;display:inline-flex">' + ic("upload") + ' Ou escolher um arquivo .csv/.txt<input type="file" id="arqImport" accept=".csv,.txt,text/csv,text/plain" hidden></label>' +
@@ -3597,6 +4278,7 @@ window.CONECTA_COLABORADORES_SEED = [
       }));
       return;
     }
+    if (alvo.hasAttribute("data-pes-vinc")) { ui.pesVinc = alvo.getAttribute("data-pes-vinc"); renderConteudo(); return; }
     if ((a = alvo.getAttribute("data-colab-editar"))) { abrirFormColab(a); return; }
     if ((a = alvo.getAttribute("data-colab-excluir"))) {
       var cx = colabPorId(a); if (!cx) return;
