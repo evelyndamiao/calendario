@@ -666,7 +666,7 @@ textarea.input { resize: vertical; min-height: 80px; }
      interno      -> evento interno do sistema (teste)
    ========================================================================= */
 
-window.CONECTA_SEED_VERSION = 4;
+window.CONECTA_SEED_VERSION = 6;
 
 window.CONECTA_CATEGORIAS = {
   feriado:       { nome: "Feriado / ponto facultativo", cor: "#64748b", fundo: "#eef1f5" },
@@ -1329,7 +1329,7 @@ window.CONECTA_SEED = [
   }
 ];
 
-/* Pessoas — planilha "Controle de Vendedores — Time DREAM": aba PJ (vendedores, 17/11/2026) e aba CLT (18/11/2026).
+/* Pessoas — planilha "Controle de Vendedores — Time DREAM": aba PJ (vendedores, 17/11/2026) e aba CLT (18/11/2026); admissões de Carlos Eduardo Mota e Zenita Haveroth Rocha informadas pelo RH em 18/11/2026.
    Por privacidade, só dia e mês do nascimento são guardados. */
 window.CONECTA_COLABORADORES_SEED = [
  {
@@ -1451,6 +1451,19 @@ window.CONECTA_COLABORADORES_SEED = [
   "vinculo": "PJ",
   "cargo": "",
   "alerta": ""
+ },
+ {
+  "id": "pes-clt-40",
+  "nome": "Carlos Eduardo Mota",
+  "area": "Técnicos e eletricistas",
+  "gestor": "",
+  "aniversario": "02-12",
+  "admissao": "2026-11-23",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Auxiliar de Instalador de Sistemas Fotovoltaicos",
+  "alerta": "",
+  "desdeVersao": 5
  },
  {
   "id": "pes-clt-04",
@@ -2447,6 +2460,19 @@ window.CONECTA_COLABORADORES_SEED = [
   "vinculo": "PJ",
   "cargo": "",
   "alerta": ""
+ },
+ {
+  "id": "pes-clt-41",
+  "nome": "Zenita Haveroth Rocha",
+  "area": "Financeiro",
+  "gestor": "",
+  "aniversario": "03-18",
+  "admissao": "2026-11-23",
+  "ativo": true,
+  "vinculo": "CLT",
+  "cargo": "Analista Financeiro",
+  "alerta": "",
+  "desdeVersao": 6
  }
 ];
 
@@ -2638,17 +2664,18 @@ window.CONECTA_COLABORADORES_SEED = [
     var ids = {}; d.eventos.forEach(function (e) { ids[e.id] = true; });
     SEED.forEach(function (e) { if ((e.desdeVersao || 1) > v && !ids[e.id]) d.eventos.push(eventoBase(e)); });
     // v3: pessoas da planilha "Controle de Vendedores — Time DREAM": atualiza por nome e inclui quem falta
-    if (v < 4) {
-      // v3: vendedores (PJ) · v4: + colaboradores CLT e vínculo de cada pessoa
-      (window.CONECTA_COLABORADORES_SEED || []).forEach(function (p) {
+    // v3: vendedores (PJ) · v4: + colaboradores CLT e vínculo · v5+: pessoas novas (campo desdeVersao)
+    (window.CONECTA_COLABORADORES_SEED || []).forEach(function (p) {
+      if ((p.desdeVersao || 4) <= v) return;
+      (function () {
         var ex = d.colaboradores.filter(function (x) { return norm(x.nome) === norm(p.nome); })[0];
         if (ex) {
           ex.aniversario = p.aniversario; ex.area = p.area; ex.gestor = p.gestor || "";
           ex.vinculo = p.vinculo || ex.vinculo || ""; ex.cargo = p.cargo || ex.cargo || ""; ex.alerta = p.alerta || "";
           if (p.admissao) ex.admissao = p.admissao;
         } else d.colaboradores.push(colabBase(p));
-      });
-    }
+      })();
+    });
     d.versao = alvo;
     salvarEstado(d);
   }
